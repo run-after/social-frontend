@@ -1,6 +1,7 @@
 import './styles/App.css';
 import Header from './components/Header';
 import Login from './components/Login';
+import SignUp from './components/SignUp';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -39,6 +40,9 @@ function App() {
         <Switch>
           <Route path='/login'>
             <Login setLoggedIn={setLoggedIn} />
+          </Route>
+          <Route path='/signup'>
+            <SignUp setLoggedIn={setLoggedIn} />
           </Route>
         </Switch>
       </div>
