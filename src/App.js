@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
 
@@ -32,12 +33,17 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} logOut={logOut} />
-      {!loggedIn && <Login setLoggedIn={setLoggedIn} />}
-    </div>
+    <Router>
+      <div className="App">
+        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} logOut={logOut} />
+        <Switch>
+          <Route path='/login'>
+            <Login setLoggedIn={setLoggedIn} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
-
 };
 
 export default App;
