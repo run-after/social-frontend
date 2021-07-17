@@ -1,8 +1,15 @@
 import '../styles/Login.css';
 import { useState } from 'react';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 function Login(props) {
+
+  let history = useHistory();
+  
+  const redirectToHome = () => {
+    history.push('/');
+  };
 
   const [message, setMessage] = useState(null);
 
@@ -32,6 +39,7 @@ function Login(props) {
         if (res.user) {
           setTokenWithExpiration(res);
           setMessage(null);
+          redirectToHome();
         } else {
           setMessage(res.message);
         };
