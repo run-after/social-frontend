@@ -2,7 +2,7 @@ import '../styles/Login.css';
 import { useState } from 'react';
 import moment from 'moment';
 
-function Login() {
+function Login(props) {
 
   const [message, setMessage] = useState(null);
 
@@ -12,8 +12,8 @@ function Login() {
       user: data.user._id,
       expires: moment().add(1, 'days')
     };
-
     localStorage.setItem('token', JSON.stringify(item));
+    props.setLoggedIn(true);
   };
 
   const login = (e) => {
