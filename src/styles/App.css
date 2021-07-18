@@ -1,3 +1,23 @@
 .error-message {
   color: red;
 }
+
+.btn {
+  background: #f89400;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.left-column {
+  width: 33%;
+  border: 1px solid black;
+}
