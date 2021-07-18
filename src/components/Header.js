@@ -1,18 +1,33 @@
 import '../styles/Header.css';
 import icon from '../media/s-icon.png';
+import { Link } from 'react-router-dom';
+import { BsHouseDoorFill, BsFillPersonFill, BsFillPeopleFill } from 'react-icons/bs';
 
 function Header(props) {
-
   return (
     <header className="header">
-      <img className='icon' src={icon} alt='social'/>
-      <p>Social</p>
-      {props.loggedIn && <button>feed</button>}
-      {props.loggedIn && <button>profile</button>}
-      {props.loggedIn && <button>users</button>}
-      {!props.loggedIn && <button>Sign up</button>}
-      {!props.loggedIn && <button>log in</button>}
-      {props.loggedIn && <button onClick={props.logOut}>log-out</button>}
+      <div className='logo'>
+        <img className='icon' src={icon} alt='social'/>
+        <p>social</p>
+      </div>
+      <nav className='nav-bar'>
+        <ul className='nav-bar-list'>
+          <li className='nav-bar-list-item'>
+            {props.loggedIn && <Link to='/'><BsHouseDoorFill /></Link>}
+          </li>
+          <li className='nav-bar-list-item'>
+            {props.loggedIn && <Link to='/profile'><BsFillPersonFill /></Link>}
+          </li>
+          <li className='nav-bar-list-item'>
+            {props.loggedIn && <Link to='/users'><BsFillPeopleFill /></Link>}
+          </li>
+        </ul>
+      </nav>
+      <div className='action-buttons'>
+        {props.loggedIn && <button className='action-button' onClick={props.logOut}>log-out</button>}
+        {!props.loggedIn && <Link className='action-button' to='/signup'>Sign up</Link>}
+        {!props.loggedIn && <Link className='action-button' to='login'>Log in</Link>}
+      </div>
     </header>
   );
 }
