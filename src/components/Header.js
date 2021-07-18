@@ -24,9 +24,9 @@ function Header(props) {
         </ul>
       </nav>
       <div className='action-buttons'>
-        {props.loggedIn && <button className='action-button' onClick={props.logOut}>log-out</button>}
-        {!props.loggedIn && <Link className='action-button' to='/signup'>Sign up</Link>}
-        {!props.loggedIn && <Link className='action-button' to='login'>Log in</Link>}
+        {props.loggedIn && <button className='action-button btn' onClick={props.logOut}>log-out</button>}
+        {!props.loggedIn && <Link className='action-button btn' to='/signup'>Sign up</Link>}
+        {!props.loggedIn && <Link className='action-button btn' to='login'>Log in</Link>}
       </div>
     </header>
   );

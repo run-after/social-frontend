@@ -50,18 +50,3 @@
   text-decoration: none;
   margin: 5px;
 }
-
-.action-button {
-  background: #f89400;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  color: white;
-  margin: 10px;
-  text-decoration: none;
-}
-
-.action-button:hover {
-  cursor: pointer;
-  opacity: 0.75;
-}
