@@ -5,7 +5,7 @@ import SignUp from './components/SignUp';
 import Users from './components/Users';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 function App() {
 
@@ -44,13 +44,10 @@ function App() {
           </Route>
           <Route path='/signup'>
             <SignUp setLoggedIn={setLoggedIn} />
+          </Route>  
+          <Route path='/users'>
+            {(loggedIn && <Users loggedIn={loggedIn}/>) || <Redirect to='/login' />}
           </Route>
-          {
-            loggedIn &&
-            <Route path='/users'>
-              <Users />
-            </Route>
-            }
         </Switch>
       </div>
     </Router>
@@ -58,3 +55,5 @@ function App() {
 };
 
 export default App;
+
+// Need to add a way to add/remove friends on the backend
