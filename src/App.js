@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
 
   const logOut = () => {
     localStorage.removeItem('token');
@@ -46,7 +46,7 @@ function App() {
             <SignUp setLoggedIn={setLoggedIn} />
           </Route>  
           <Route path='/users'>
-            {(loggedIn && <Users loggedIn={loggedIn}/>) || <Redirect to='/login' />}
+            {(!loggedIn && <Redirect to='/login' />) || <Users />}
           </Route>
         </Switch>
       </div>
