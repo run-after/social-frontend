@@ -16,7 +16,7 @@ function Login(props) {
   const setTokenWithExpiration = (data) => {
     const item = {
       token: data.token,
-      user: data.user._id,
+      user: data.user,
       expires: moment().add(1, 'days')
     };
     localStorage.setItem('token', JSON.stringify(item));
