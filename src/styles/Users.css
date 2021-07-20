@@ -1,3 +1,43 @@
 .users-page {
   margin-top: 50px;
+  display: flex;
+}
+
+.user {
+  height: 250px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.user-image {
+  height: 50%;
+  background: gray;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.user .user-name {
+  font-weight: bold;
+  margin: 5px;
+}
+
+.user .add-friend-button,
+.user .friend-requested {
+  margin: 5px;
+  width: 90%;
+}
+
+.user .friend-requested {
+  background: lightgreen;
+}
+
+.requested-block {
+  background: lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  margin: 10px;
+  text-align: center;
 }
