@@ -5,6 +5,7 @@ function Users() {
 
   const token = JSON.parse(localStorage.getItem('token'));
 
+  const [users, setUsers] = useState(null);
   const [friendRequested, setFriendRequested] = useState({ data: [] });
   const [requestedFriends, setRequestedFriends] = useState({ data: [] });
   
@@ -22,11 +23,9 @@ function Users() {
         let tempRequested = requestedFriends.data;
         tempRequested.push(person._id);
         setRequestedFriends({ data: tempRequested });
-      })
+      });
     });
   };
-
-  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     // Make api call to get all users
@@ -52,9 +51,9 @@ function Users() {
         let friendRequestedList = [];
         let requestedFriendList = [];
         res.forEach((request) => {
-          if (request.requester === token.user) {
+          if (request.requester === token.user._id) {
             requestedFriendList.push(request.requested);
-          } else if (request.requested === token.user) {
+          } else if (request.requested === token.user._id) {
             friendRequestedList.push(request.requester);
           };
         });
@@ -70,7 +69,7 @@ function Users() {
         Whatever
       </div>
       {users && users.map((user) => {
-        if (user._id !== token.user) {
+        if (user._id !== token.user._id) {
           return (
             <div key={user._id} className='user'>
               <div className='user-image'>placeholder</div>
