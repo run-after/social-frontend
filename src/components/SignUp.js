@@ -69,5 +69,3 @@ function SignUp(props) {
 }
 
 export default SignUp;
-
-// Add a password confirm section
