@@ -13,15 +13,15 @@ function App() {
 
   const logOut = () => {
     localStorage.removeItem('token');
-    setLoggedIn(false);
+    window.location.reload();
   };
 
   useEffect(() => {
     // Check if token is expired.
     if (localStorage.getItem('token')) {
-      const tokenExpiration = JSON.parse(localStorage.getItem('token')).expires;
+      const token = JSON.parse(localStorage.getItem('token'));
       // If token is expired, remove and set loggedIn status to false.
-      if (moment(tokenExpiration) < moment()) {
+      if (moment(token.expires) < moment()) {
         localStorage.removeItem('token');
         setLoggedIn(false);
       } else {
