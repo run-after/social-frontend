@@ -33,6 +33,7 @@ function SignUp(props) {
       body: JSON.stringify({
         'email': e.target.email.value,
         'password': e.target.password.value,
+        'confirmation': e.target.confirmation.value,
         'firstName': e.target.firstName.value,
         'lastName': e.target.lastName.value
       })
@@ -60,6 +61,7 @@ function SignUp(props) {
         <input id='lastName' placeholder='Last Name' />
         <input id='email' type='email' placeholder='Email' required />
         <input id='password' type='password' placeholder='Password' required />
+        <input id='confirmation' type='password' placeholder='Re-enter password' required />
         <button type='submit'>Sign up</button>
       </form>
     </div>
@@ -67,3 +69,5 @@ function SignUp(props) {
 }
 
 export default SignUp;
+
+// Add a password confirm section
