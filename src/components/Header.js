@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { BsHouseDoorFill, BsFillPersonFill, BsFillPeopleFill } from 'react-icons/bs';
 
 function Header(props) {
+  const token = JSON.parse(localStorage.getItem('token'));
+
   return (
     <header className="header">
       <div className='logo'>
@@ -16,7 +18,7 @@ function Header(props) {
             {props.loggedIn && <Link to='/'><BsHouseDoorFill /></Link>}
           </li>
           <li className='nav-bar-list-item'>
-            {props.loggedIn && <Link to='/profile'><BsFillPersonFill /></Link>}
+            {props.loggedIn && <Link to={`/users/${token.user._id}`}><BsFillPersonFill /></Link>}
           </li>
           <li className='nav-bar-list-item'>
             {props.loggedIn && <Link to='/users'><BsFillPeopleFill /></Link>}
