@@ -84,6 +84,7 @@ function Users() {
   };
 
   useEffect(() => {
+    let componentMounted = true;
     // Make api call to get all users
     fetch(`${process.env.REACT_APP_API_DOMAIN}/users`,
       {
@@ -94,7 +95,9 @@ function Users() {
       }
     ).then((initRes) => {
       initRes.json().then((res) => {
-        setUsers(res);
+        if (componentMounted) {
+          setUsers(res);  
+        };
       });
     });
     // Get all friend requests that apply to current user
@@ -113,17 +116,22 @@ function Users() {
             friendRequestedList.push(request.requester);
           };
         });
-        setRequestedFriends({ data: requestedFriendList });
-        setFriendRequested({ data: friendRequestedList });
+        if (componentMounted) {
+          setRequestedFriends({ data: requestedFriendList });
+          setFriendRequested({ data: friendRequestedList });  
+        };
+        return () => {
+          componentMounted = false;
+        };
       });
     });
-  }, [token.user, token.token]);
+  }, [token]);
 
   return (
     <div className='users-page'>
-      <div className='left-column'>
+      <aside className='left-column'>
         Whatever
-      </div>
+      </aside>
       {users && users.map((user) => {
         if (user._id !== token.user._id) {
           return (
@@ -144,6 +152,6 @@ function Users() {
       })}
     </div>
   );
-}
+};
 
 export default Users;
