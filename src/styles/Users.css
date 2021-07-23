@@ -32,10 +32,15 @@
 }
 
 .user .add-friend-button,
-.user .friend-requested {
+.user .friend-requested,
+.user .remove-friend-button {
   margin: 5px;
   width: 90%;
   align-self: center;
+}
+
+.user .remove-friend-button {
+  background: rgb(180, 0, 0);
 }
 
 .user .friend-requested {
