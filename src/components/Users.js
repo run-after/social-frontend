@@ -120,11 +120,12 @@ function Users() {
           setRequestedFriends({ data: requestedFriendList });
           setFriendRequested({ data: friendRequestedList });  
         };
-        return () => {
-          componentMounted = false;
-        };
+        
       });
     });
+    return () => {
+      componentMounted = false;
+    };
   }, [token]);
 
   return (
