@@ -173,9 +173,6 @@ function Users() {
 
   return (
     <div className='users-page'>
-      <aside className='left-column'>
-        Whatever
-      </aside>
       {users && users.map((user) => {
         if (user._id !== token.user._id) {
           return (
