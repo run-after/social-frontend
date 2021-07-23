@@ -1,5 +1,7 @@
 import '../styles/Users.css';
 import { useState, useEffect } from 'react';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 function Users() {
 
@@ -137,8 +139,8 @@ function Users() {
         if (user._id !== token.user._id) {
           return (
             <div key={user._id} className='user'>
-              <div className='user-image'>placeholder</div>
-              <h5 className='user-name'>{`${user.firstName} ${user.lastName}`}</h5>
+              <Link className='user-image'to={`/users/${user._id}`}><BsFillPersonFill /></Link>
+              <h5 className='user-name'><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></h5>
               {// so confusing... but it works
                 (token.user.friends.includes(user._id) && <p>friends</p>) || 
                 (((requestedFriends.data.includes(user._id) &&
