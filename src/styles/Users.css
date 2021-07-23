@@ -9,13 +9,21 @@
   border: 1px solid black;
   border-radius: 10px;
   margin: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-image {
   height: 50%;
-  background: gray;
+  width: 100%;
+  background: rgb(194, 194, 194);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  color: white;
+  font-size: 6em;
 }
 
 .user .user-name {
@@ -27,6 +35,7 @@
 .user .friend-requested {
   margin: 5px;
   width: 90%;
+  align-self: center;
 }
 
 .user .friend-requested {
