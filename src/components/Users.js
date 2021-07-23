@@ -29,6 +29,47 @@ function Users() {
     });
   };
 
+  const removeFriend = (person) => {
+    // Prompt if they are sure
+    // Make call to api to remove friend
+    const currentUser = JSON.parse(localStorage.getItem('token')).user;
+
+    // Add current user to person who requested friendship's friend list
+    let filteredFriends = person.friends.filter(friend => {
+      return friend !== currentUser._id;
+    });
+
+    person.friends = filteredFriends;
+    fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${person._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token.token}`
+      },
+      body: JSON.stringify(person)
+    });
+
+    // Add person who requested friendship to current user's friend list
+    filteredFriends = currentUser.friends.filter(friend => {
+      return friend !== person._id;
+    });
+    currentUser.friends = filteredFriends;
+    fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${currentUser._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token.token}`
+      },
+      body: JSON.stringify(currentUser)
+    }).then((res) => {
+      res.json().then((res) => {
+        let updatedToken = JSON.parse(localStorage.getItem('token'));
+        updatedToken.user = res;
+        localStorage.setItem('token', JSON.stringify(updatedToken));
+      });
+    });
+  };
+
   const acceptRequest = (person) => {
     const currentUser = JSON.parse(localStorage.getItem('token')).user;
 
@@ -142,7 +183,7 @@ function Users() {
               <Link className='user-image'to={`/users/${user._id}`}><BsFillPersonFill /></Link>
               <h5 className='user-name'><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></h5>
               {// so confusing... but it works
-                (token.user.friends.includes(user._id) && <p>friends</p>) || 
+                (token.user.friends.includes(user._id) && <button className='remove-friend-button btn' onClick={() => removeFriend(user)}>Remove friend</button>) || 
                 (((requestedFriends.data.includes(user._id) &&
                   <div className='requested-block'>Friend requested</div>) ||
                 (friendRequested.data.includes(user._id) &&
