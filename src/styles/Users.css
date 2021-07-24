@@ -8,14 +8,14 @@
 .user {
   height: 250px;
   width: 200px;
-  border: 1px solid black;
   border-radius: 10px;
   margin: 5px;
   display: flex;
   flex-direction: column;
+  background: white;
 }
 
-.user-image {
+.user .user-image {
   height: 50%;
   width: 100%;
   background: rgb(194, 194, 194);
