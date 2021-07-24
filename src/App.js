@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Users from './components/Users';
+import Profile from './components/Profile';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -44,7 +45,10 @@ function App() {
           </Route>
           <Route path='/signup'>
             <SignUp setLoggedIn={setLoggedIn} />
-          </Route>  
+          </Route>
+          <Route path='/users/:userID'>
+            {(!loggedIn && <Redirect to='/login' />) || <Profile />}
+          </Route>
           <Route path='/users'>
             {(!loggedIn && <Redirect to='/login' />) || <Users />}
           </Route>
@@ -56,4 +60,7 @@ function App() {
 
 export default App;
 
-// Need to add a way to add/remove friends on the backend
+// Need to add a way to remove friends on the backend
+
+// When token expires, the app doesn't check the token all the time.
+// It only checks when app is first loaded
