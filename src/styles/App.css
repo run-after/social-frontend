@@ -18,6 +18,29 @@
 }
 
 .left-column {
-  width: 33%;
+  width: 25%;
   border: 1px solid black;
+}
+
+.post-form {
+  display: flex;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+  background: white;
+}
+
+.post-form textarea {
+  background: rgb(241, 241, 241);
+  border-radius: 10px;
+  border: none;
+  resize: none;
+  outline: none;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
