@@ -30,11 +30,10 @@ function Users() {
   };
 
   const removeFriend = (person) => {
-    // Prompt if they are sure
     // Make call to api to remove friend
     const currentUser = JSON.parse(localStorage.getItem('token')).user;
 
-    // Add current user to person who requested friendship's friend list
+    // Remove current user from person who requested friendship's friend list
     let filteredFriends = person.friends.filter(friend => {
       return friend !== currentUser._id;
     });
@@ -49,7 +48,7 @@ function Users() {
       body: JSON.stringify(person)
     });
 
-    // Add person who requested friendship to current user's friend list
+    // Remove person who requested friendship from current user's friend list
     filteredFriends = currentUser.friends.filter(friend => {
       return friend !== person._id;
     });
