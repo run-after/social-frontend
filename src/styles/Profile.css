@@ -1,0 +1,69 @@
+.profile-page {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-page .hero-section {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 50%,
+    rgb(237, 238, 231) 100%
+  );
+  align-items: center;
+}
+
+.profile-page .hero-section .user-name {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.profile-page .user-image {
+  width: 65%;
+  height: 250px;
+  background: rgb(194, 194, 194);
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: flex-end;
+  color: white;
+  font-size: 6em; /* I will use image instead of icon from react icons*/
+}
+
+.profile-page .main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  align-self: center;
+}
+
+.text-area-container {
+  padding: 5px;
+  width: 95%;
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.profile-page .post-form {
+  width: 95%;
+  border: none;
+  box-shadow: 10px 5px 5px rgb(192, 192, 192);
+}
+
+.profile-page .user-feed {
+  display: flex;
+  width: 100%;
+}
+
+.profile-page .left-section {
+  width: 50%;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.profile-page .post-feed {
+  width: 50%;
+}
