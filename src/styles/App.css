@@ -44,3 +44,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.error-message {
+  color: red;
+}
