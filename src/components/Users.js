@@ -168,7 +168,7 @@ function Users() {
     return () => {
       componentMounted = false;
     };
-  }, [token]);
+  }, [token.user._id, token.token]);
 
   return (
     <div className='users-page'>
