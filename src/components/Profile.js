@@ -107,7 +107,7 @@ function Profile() {
             {
               userPosts &&
               userPosts.data.map(post => {
-                return <Post key={post._id} userPosts={userPosts} setUserPosts={setUserPosts} post={post} />
+                return <Post key={post._id} posts={userPosts} setPosts={setUserPosts} post={post} />
               })
             }
           </div>
