@@ -4,6 +4,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Users from './components/Users';
 import Profile from './components/Profile';
+import Home from './components/Home';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -52,6 +53,9 @@ function App() {
           <Route path='/users'>
             {(!loggedIn && <Redirect to='/login' />) || <Users />}
           </Route>
+          <Route path='/'>
+            {(!loggedIn && <Redirect to='/login' />) || <Home />}
+          </Route>
         </Switch>
       </div>
     </Router>
@@ -64,3 +68,12 @@ export default App;
 
 // When token expires, the app doesn't check the token all the time.
 // It only checks when app is first loaded
+
+// Need to make edit button work on post
+// Need comments to show up on each post
+// Avatar on each post
+// Need to have a comment form
+// Need a default avatar
+// Need a way to make avatar picture work
+// Need to login via real facebook
+// Add likes to post/comments
