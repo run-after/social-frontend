@@ -10,26 +10,11 @@
   box-shadow: 10px 5px 5px rgb(192, 192, 192);
 }
 
-.post .delete-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 5px 10px;
-  border: none;
-  background: orange;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 5px;
-}
-
+.post .delete-button,
 .post .edit-button {
   position: absolute;
   top: 0;
   right: 0;
-  margin: 5px 40px;
   border: none;
   background: orange;
   color: white;
@@ -38,6 +23,20 @@
   align-items: center;
   padding: 5px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.post .delete-button {
+  margin: 5px 10px;
+}
+
+.post .edit-button {
+  margin: 5px 40px;
+}
+
+.post .delete-button:hover,
+.post .edit-button:hover {
+  opacity: 0.75;
 }
 
 .post-header {
