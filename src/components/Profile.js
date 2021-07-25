@@ -13,6 +13,7 @@ function Profile() {
   const [userPosts, setUserPosts] = useState({ data: [] });
   const [textAreaText, setTextAreaText] = useState('');
   const [friends, setFriends] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const createPost = (e) => {
     e.preventDefault();
@@ -26,11 +27,16 @@ function Profile() {
       body: JSON.stringify({ 'content': e.target.content.value, 'author': userID })
     }).then((initRes) => {
       initRes.json().then((res) => {
-        let tempUserPosts = userPosts.data;
-        res.author = user
-        tempUserPosts.unshift(res);
-        setUserPosts({ data: tempUserPosts });
-        setTextAreaText('');
+        if (res.message) {
+          setErrorMessage(res.message);
+        } else {
+          let tempUserPosts = userPosts.data;
+          res.author = user
+          tempUserPosts.unshift(res);
+          setUserPosts({ data: tempUserPosts });
+          setTextAreaText('');
+          setErrorMessage(null);
+        };
       });
     });
   };
@@ -88,6 +94,7 @@ function Profile() {
           // Only display post form if currentUser
           user && user._id === token.user._id &&
           <form className='post-form' onSubmit={createPost}>
+            {<div className='error-message'>{errorMessage}</div>}
             <div className='text-area-container'>
               <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
             </div>

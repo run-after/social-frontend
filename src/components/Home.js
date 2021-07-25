@@ -8,6 +8,7 @@ function Home() {
 
   const [posts, setPosts] = useState({data: []});
   const [textAreaText, setTextAreaText] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const createPost = (e) => {
     e.preventDefault();
@@ -21,11 +22,16 @@ function Home() {
       body: JSON.stringify({ 'content': e.target.content.value, 'author': token.user._id })
     }).then((initRes) => {
       initRes.json().then((res) => {
-        let tempPosts = posts.data;
-        res.author = token.user
-        tempPosts.unshift(res);
-        setPosts({ data: tempPosts });
-        setTextAreaText('');
+        if (res.message) {
+          setErrorMessage(res.message);
+        } else {
+          let tempPosts = posts.data;
+          res.author = token.user
+          tempPosts.unshift(res);
+          setPosts({ data: tempPosts });
+          setTextAreaText('');
+          setErrorMessage(null);
+        }
       });
     });
   };
@@ -53,6 +59,7 @@ function Home() {
       <div className='left-column'>Left</div>
       <div className='post-feed'>
         <form className='post-form' onSubmit={createPost}>
+          {<div className='error-message'>{errorMessage}</div>}
           <div className='text-area-container'>
             <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
           </div>
