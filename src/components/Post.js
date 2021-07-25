@@ -12,8 +12,8 @@ function Post(props) {
       }
     }).then((res) => {
       res.json().then((res) => {
-        let userPosts = props.userPosts.data.filter(post => post._id !== props.post._id);
-        props.setUserPosts({ data: userPosts });
+        let posts = props.posts.data.filter(post => post._id !== props.post._id);
+        props.setPosts({ data: posts });
       });
     });
   };
