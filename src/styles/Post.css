@@ -40,7 +40,11 @@
 }
 
 .post-header {
-  border-bottom: 1px solid black;
+  margin: 5px 0;
+}
+
+.post .post-author {
+  font-weight: bold;
 }
 
 .post-time {
@@ -50,4 +54,46 @@
 
 .post-content {
   margin-top: 10px;
+}
+
+.post .action-buttons {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 5px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.post .action-button {
+  font-size: 1.1em;
+  font-weight: 100;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 25px;
+  cursor: pointer;
+}
+
+.post .action-button:hover {
+  background: #f1f1f1;
+}
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.comment-form textarea {
+  background: rgb(241, 241, 241);
+  border-radius: 10px;
+  border: none;
+  resize: none;
+  outline: none;
+  padding: 5px 0 0 5px;
+  margin: 5px;
+  width: 100%;
 }
