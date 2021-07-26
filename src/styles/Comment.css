@@ -1,0 +1,25 @@
+.comment {
+  display: flex;
+  margin: 5px;
+  width: 100%;
+}
+
+.comment-avatar {
+  flex-shrink: 0;
+  border-radius: 100%;
+  background: orange;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+}
+
+.comment-content {
+  background: rgb(230, 230, 230);
+  border-radius: 30px;
+  padding: 10px 25px;
+}
+
+.comment-author {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
