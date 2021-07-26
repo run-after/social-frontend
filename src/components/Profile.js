@@ -94,9 +94,9 @@ function Profile() {
           // Only display post form if currentUser
           user && user._id === token.user._id &&
           <form className='post-form' onSubmit={createPost}>
-            {<div className='error-message'>{errorMessage}</div>}
             <div className='text-area-container'>
-              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
+              {<div className='error-message'>{errorMessage}</div>}
+              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required />
             </div>
             <button className='btn' type='submit'>Post</button>
           </form>
@@ -125,3 +125,5 @@ function Profile() {
 };
 
 export default Profile;
+
+// Don't love error message for post form
