@@ -59,8 +59,8 @@ function Home() {
       <div className='left-column'>Left</div>
       <div className='post-feed'>
         <form className='post-form' onSubmit={createPost}>
-          {<div className='error-message'>{errorMessage}</div>}
           <div className='text-area-container'>
+            {<div className='error-message'>{errorMessage}</div>}
             <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
           </div>
           <button className='btn' type='submit'>Post</button>
@@ -78,3 +78,5 @@ export default Home;
 
 // When i add token.user.friends to dependency array on useEffect it keeps
 // making calls to api
+
+// Don't love error message for post form
