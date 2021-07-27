@@ -11,6 +11,8 @@ function Post(props) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [displayComments, setDisplayComments] = useState(false);
   const [textAreaText, setTextAreaText] = useState('');
+  const [postIsLiked, setPostIsLiked] = useState(false);
+  const [postLikes, setPostLikes] = useState({data: []});
 
   const changeText = (e) => {
     setTextAreaText(e.target.value);
@@ -55,7 +57,42 @@ function Post(props) {
     });
   };
 
+  const changeLikeStatus = (postID) => {
+    
+    // If user has already liked post...
+    if (postIsLiked) {
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then(initRes => {
+        initRes.json().then(res => {
+          setPostIsLiked(false);
+          let tempPostLikes = postLikes.data.filter(like => (like.post !== postID) && (like.user !== token.user._id));
+          setPostLikes({ data: tempPostLikes });
+        });
+      });
+    } else {
+      // If user hasn't already liked post...
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then(initRes => {
+        initRes.json().then(res => {
+          setPostIsLiked(true);
+          let tempPostLikes = postLikes.data;
+          tempPostLikes.push(res);
+          setPostLikes({ data: tempPostLikes });
+        });
+      });
+    };
+  };
+
   useEffect(() => {
+    // Get all post comments
     fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/comments`, {
       headers: {
         'Authorization': `Bearer ${token.token}`
@@ -65,6 +102,28 @@ function Post(props) {
         setPostComments({ data: comment_list });
       });
     });
+
+    // Get all post likes
+    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/likes`, {
+      headers: {
+        'Authorization': `Bearer ${token.token}`
+      }
+    }).then(initRes => {
+      initRes.json().then(res => {
+        if (res.message) {
+          //Not sure what to do - maybe a 404
+        } else {
+          setPostLikes({ data: res });
+          res.forEach((like) => {
+            if (like.user === token.user._id) {
+              setPostIsLiked(true);
+            } else {
+              setPostIsLiked(false);
+            };
+          });
+        }
+      })
+    })
   }, [token.token, props.post._id])
 
   return (
@@ -85,9 +144,10 @@ function Post(props) {
         {props.post.content}
       </div>
       <div className='action-buttons'>
-        <button className='action-button'><FaRegThumbsUp />Like</button>
+        <button className='action-button' onClick={() => { changeLikeStatus(props.post._id) }}><FaRegThumbsUp />{(!postIsLiked && 'Like') || 'Unlike'}</button>
         <button className='action-button' onClick={() => { setDisplayComments(!displayComments) }}><BsChatDots />Comment</button>
       </div>
+      <span className='like-count'><FaRegThumbsUp /> {postLikes.data.length}</span>
       {
         
         displayComments &&
@@ -113,3 +173,4 @@ function Post(props) {
 export default Post;
 
 // Error message for comment form needs to be addressed
+// Each comment needs a like button
