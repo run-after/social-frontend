@@ -1,6 +1,7 @@
 .comment {
   display: flex;
   margin: 5px;
+  margin-top: 20px;
   width: 100%;
 }
 
@@ -17,9 +18,29 @@
   background: rgb(230, 230, 230);
   border-radius: 30px;
   padding: 10px 25px;
+  position: relative;
 }
 
 .comment-author {
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.comment-like-button {
+  position: absolute;
+  bottom: -18px;
+  left: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.comment-like-button:hover {
+  text-decoration: underline;
+}
+
+.comment .like-count {
+  position: absolute;
+  bottom: -18px;
+  right: 5px;
 }
