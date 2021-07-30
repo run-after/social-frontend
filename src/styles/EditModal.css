@@ -1,0 +1,33 @@
+.edit-modal {
+  height: 100%;
+  width: 100%;
+  background: rgba(211, 211, 211, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-form {
+  height: 500px;
+  width: 400px;
+  border-radius: 20px;
+  background: white;
+  margin-top: 75px;
+}
+
+.edit-form-header {
+  height: 10%;
+  border-bottom: 1px solid rgb(194, 194, 194);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.edit-form-form {
+  display: flex;
+  flex-direction: column;
+}
