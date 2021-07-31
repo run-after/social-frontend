@@ -61,7 +61,6 @@ function Comment(props) {
     }).then((res) => {
       res.json().then((res) => {
         let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
-        console.log(res)
         props.setPostComments({ data: comments });
       });
     });
