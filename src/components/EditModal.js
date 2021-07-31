@@ -16,15 +16,26 @@ function EditModal(props) {
         },
         body: JSON.stringify({ content: e.target.content.value })
       }).then(initRes => {
-        console.log(initRes)
         initRes.json().then(res => {
           props.closeModal();
-          // Update post in state
-          console.log(res)
+          props.setPost(res);
         });
       });
     } else {
       // Edit comment
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.content.post}/comments/${props.content._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.token}`
+        },
+        body: JSON.stringify({ content: e.target.content.value })
+      }).then(initRes => {
+        initRes.json().then(res => {
+          props.closeModal();
+          props.setComment(res);
+        });
+      })
     };
 
   };
