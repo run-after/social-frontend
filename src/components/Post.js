@@ -3,6 +3,7 @@ import { BsFillTrashFill, BsPencil, BsChatDots } from 'react-icons/bs';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import Comment from './Comment';
 import { useState, useEffect } from 'react';
+import EditModal from './EditModal';
 
 function Post(props) {
   const token = JSON.parse(localStorage.getItem('token'));
@@ -12,7 +13,9 @@ function Post(props) {
   const [displayComments, setDisplayComments] = useState(false);
   const [textAreaText, setTextAreaText] = useState('');
   const [postIsLiked, setPostIsLiked] = useState(false);
-  const [postLikes, setPostLikes] = useState({data: []});
+  const [postLikes, setPostLikes] = useState({ data: [] });
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [post, setPost] = useState(props.post);
 
   const changeText = (e) => {
     setTextAreaText(e.target.value);
@@ -30,6 +33,10 @@ function Post(props) {
         props.setPosts({ data: posts });
       });
     });
+  };
+
+  const editPost = () => {
+    setShowEditModal(!showEditModal);
   };
 
   const createComment = (e) => {
@@ -121,13 +128,14 @@ function Post(props) {
               setPostIsLiked(false);
             };
           });
-        }
-      })
-    })
-  }, [token.token, props.post._id])
+        };
+      });
+    });
+  }, [token.token, props.post._id, token.user._id])
 
   return (
     <div className='post'>
+      {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} />}
       <div className='post-header'>
         <span className='post-author'>{props.post.author.firstName} {props.post.author.lastName}</span>
         <span className='post-time'>{new Date(props.post.createdAt).toLocaleString()}</span>
@@ -137,11 +145,11 @@ function Post(props) {
         }
         {
           props.post.author._id === token.user._id &&
-          <button className='edit-button'><BsPencil /></button>
+          <button onClick={() => editPost(props.post._id)} className='edit-button'><BsPencil /></button>
         }
       </div>
       <div className='post-content'>
-        {props.post.content}
+        {post.content}
       </div>
       <div className='action-buttons'>
         <button className='action-button' onClick={() => { changeLikeStatus(props.post._id) }}><FaRegThumbsUp />{(!postIsLiked && 'Like') || 'Unlike'}</button>
@@ -149,7 +157,6 @@ function Post(props) {
       </div>
       <span className='like-count'><FaRegThumbsUp /> {postLikes.data.length}</span>
       {
-        
         displayComments &&
         <div className='comments'>
           <form className='comment-form' onSubmit={createComment}>
@@ -160,12 +167,11 @@ function Post(props) {
           </form>
           {
             postComments.data.map(comment => {
-              return <Comment key={comment._id} comment={comment} />;
+              return <Comment key={comment._id} comment={comment} postComments={postComments} setPostComments={setPostComments} />;
             })
           }
         </div>
       }
-        
     </div>
   );
 }
@@ -173,4 +179,3 @@ function Post(props) {
 export default Post;
 
 // Error message for comment form needs to be addressed
-// Each comment needs a like button
