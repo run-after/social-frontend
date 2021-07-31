@@ -1,6 +1,8 @@
 import '../styles/Comment.css';
 import { useState, useEffect } from 'react';
 import { FaRegThumbsUp } from 'react-icons/fa';
+import { BsPencil, BsTrashFill } from 'react-icons/bs';
+import EditModal from './EditModal';
 
 function Comment(props) {
 
@@ -8,6 +10,8 @@ function Comment(props) {
 
   const [commentLikes, setCommentLikes] = useState({ data: [] });
   const [commentIsLiked, setCommentIsLiked] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [comment, setComment] = useState(props.comment);
 
   const changeLikeStatus = (commentID) => {
 
@@ -44,6 +48,25 @@ function Comment(props) {
 
   };
 
+  const editComment = () => {
+    setShowEditModal(!showEditModal);
+  };
+
+  const deleteComment = () => {
+    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${comment.post}/comments/${comment._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token.token}`
+      }
+    }).then((res) => {
+      res.json().then((res) => {
+        let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
+        console.log(res)
+        props.setPostComments({ data: comments });
+      });
+    });
+  };
+
   useEffect(() => {
     // Get all likes for comment
     fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${props.comment._id}/likes`, {
@@ -69,15 +92,26 @@ function Comment(props) {
   }, [props.comment.post, props.comment._id, token.token, token.user._id])
   
   return (
-      <div className='comment'>
+    <div className='comment'>
+      {showEditModal && <EditModal type='comment' closeModal={editComment} content={comment} setComment={setComment} />}
         <div className='comment-avatar'></div>
         <div className='comment-content'>
           <h6 className='comment-author'>{`${props.comment.author.firstName} ${props.comment.author.lastName}`}</h6>
-          {props.comment.content}
+          <div className='comment-button-container'>
+            {
+              props.comment.author._id === token.user._id &&
+              <button className='edit-comment-button' onClick={editComment}><BsPencil /></button> 
+            }
+            {
+              props.comment.author._id === token.user._id &&
+              <button className='delete-comment-button' onClick={deleteComment}><BsTrashFill /></button>
+            }
+          </div>
+          {comment.content}
           <button className='comment-like-button' onClick={() => { changeLikeStatus(props.comment._id) }}>{(!commentIsLiked && 'Like') || 'Unlike'}</button>
-      <span className='like-count'><FaRegThumbsUp />{commentLikes.data.length}</span>
-      </div>
-      </div>
+          <span className='like-count'><FaRegThumbsUp />{commentLikes.data.length}</span>
+        </div>
+    </div>
   );
 }
 
