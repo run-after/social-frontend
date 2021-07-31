@@ -44,3 +44,27 @@
   bottom: -18px;
   right: 5px;
 }
+
+.comment-button-container {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  border-radius: 10px;
+  background: #f7f6f6;
+}
+
+.edit-comment-button,
+.delete-comment-button {
+  background: none;
+  border: none;
+}
+
+.delete-comment-button {
+  right: -40px;
+}
+
+.edit-comment-button:hover,
+.delete-comment-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
