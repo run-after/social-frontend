@@ -11,7 +11,7 @@
 }
 
 .edit-form {
-  height: 500px;
+  height: 200px;
   width: 400px;
   border-radius: 20px;
   background: white;
@@ -19,7 +19,7 @@
 }
 
 .edit-form-header {
-  height: 10%;
+  height: 50px;
   border-bottom: 1px solid rgb(194, 194, 194);
   display: flex;
   justify-content: center;
@@ -30,4 +30,14 @@
 .edit-form-form {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+}
+
+.edit-form-form #content {
+  border: none;
+  margin: 10px;
+}
+
+.edit-form-form #content:focus {
+  outline: none;
 }
