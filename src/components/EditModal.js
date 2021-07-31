@@ -1,4 +1,5 @@
 import '../styles/EditModal.css';
+import { BsX } from 'react-icons/bs';
 
 function EditModal(props) {
 
@@ -44,6 +45,7 @@ function EditModal(props) {
     <div className='edit-modal'>
       <div className='edit-form'>
         <header className='edit-form-header'>
+          <button className='close-modal-button' onClick={props.closeModal}><BsX /></button>
           Edit {props.type}
         </header>
         <div className='edit-form-content'>
