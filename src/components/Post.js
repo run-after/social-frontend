@@ -161,8 +161,10 @@ function Post(props) {
         <div className='comments'>
           <form className='comment-form' onSubmit={createComment}>
             <div className='comment-avatar'></div>
-            {<div className='error-message'>{errorMessage}</div>}
-            <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='Write comment...' required />
+            <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
+              {<div className='error-message'>{errorMessage}</div>}
+              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='Write comment...' required />
+            </div>
             <button className='create-comment-button btn'>Submit</button>
           </form>
           {
@@ -177,5 +179,3 @@ function Post(props) {
 }
 
 export default Post;
-
-// Error message for comment form needs to be addressed
