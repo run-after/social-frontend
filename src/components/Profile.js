@@ -94,7 +94,7 @@ function Profile() {
           // Only display post form if currentUser
           user && user._id === token.user._id &&
           <form className='post-form' onSubmit={createPost}>
-            <div className='text-area-container'>
+            <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
               {<div className='error-message'>{errorMessage}</div>}
               <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required />
             </div>
@@ -126,4 +126,4 @@ function Profile() {
 
 export default Profile;
 
-// Don't love error message for post form
+// Delete account button
