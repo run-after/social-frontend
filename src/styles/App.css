@@ -1,7 +1,3 @@
-.error-message {
-  color: red;
-}
-
 .btn {
   background: #f89400;
   border: none;
@@ -47,4 +43,8 @@ a {
 
 .error-message {
   color: red;
+}
+
+.highlight-error {
+  border: 1px solid red;
 }
