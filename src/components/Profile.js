@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
 
-function Profile() {
+function Profile(props) {
 
   const token = JSON.parse(localStorage.getItem('token'));
   const { userID } = useParams();
@@ -43,6 +43,18 @@ function Profile() {
 
   const changeText = (e) => {
     setTextAreaText(e.target.value);
+  };
+
+  const deleteAccount = () => {
+    // Need to ask if they are sure witha pop up
+    fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${token.user._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token.token}`
+      }
+    }).then(() => {
+      props.logOut();
+    });
   };
 
   useEffect(() => {
@@ -88,6 +100,11 @@ function Profile() {
         <div className='user-image'><BsFillPersonFill /></div>
         {user && <h4 className='user-name'>{user.firstName} {user.lastName}</h4>}
         {user && <p>Member since: {new Date(user.createdAt).toLocaleDateString()}</p>}
+        {
+          user && 
+          (user._id === token.user._id &&
+          <button onClick={deleteAccount}>Delete account</button>)
+        }
       </section>
       <main className='main-section'>
         {
@@ -125,5 +142,3 @@ function Profile() {
 };
 
 export default Profile;
-
-// Delete account button
