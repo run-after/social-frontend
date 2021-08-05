@@ -2,3 +2,7 @@
   margin-top: 50px;
   display: flex;
 }
+
+.home .post-feed {
+  width: 50%;
+}
