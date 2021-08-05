@@ -10,6 +10,7 @@ function Users() {
   const [users, setUsers] = useState(null);
   const [friendRequested, setFriendRequested] = useState({ data: [] });
   const [requestedFriends, setRequestedFriends] = useState({ data: [] });
+  const [friendList, setFriendList] = useState({ data: token.user.friends });
   
   const requestFriend = (person) => {
     // Make call to api to create new friend request
@@ -30,7 +31,6 @@ function Users() {
   };
 
   const removeFriend = (person) => {
-    // Make call to api to remove friend
     const currentUser = JSON.parse(localStorage.getItem('token')).user;
 
     // Remove current user from person who requested friendship's friend list
@@ -65,6 +65,7 @@ function Users() {
         let updatedToken = JSON.parse(localStorage.getItem('token'));
         updatedToken.user = res;
         localStorage.setItem('token', JSON.stringify(updatedToken));
+        setFriendList({ data: filteredFriends });
       });
     });
   };
@@ -85,6 +86,7 @@ function Users() {
 
     // Add person who requested friendship to current user's friend list
     currentUser.friends.push(person._id);
+    setFriendList({ data: currentUser.friends });
     fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${currentUser._id}`, {
       method: 'PUT',
       headers: {
@@ -178,8 +180,8 @@ function Users() {
             <div key={user._id} className='user'>
               <Link className='user-image'to={`/users/${user._id}`}><BsFillPersonFill /></Link>
               <h5 className='user-name'><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></h5>
-              {// so confusing... but it works
-                (token.user.friends.includes(user._id) && <button className='remove-friend-button btn' onClick={() => removeFriend(user)}>Remove friend</button>) || 
+              {
+                (friendList.data.includes(user._id) && <button className='remove-friend-button btn' onClick={() => removeFriend(user)}>Remove friend</button>) || 
                 (((requestedFriends.data.includes(user._id) &&
                   <div className='requested-block'>Friend requested</div>) ||
                 (friendRequested.data.includes(user._id) &&
