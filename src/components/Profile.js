@@ -46,15 +46,16 @@ function Profile(props) {
   };
 
   const deleteAccount = () => {
-    // Need to ask if they are sure witha pop up
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${token.user._id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then(() => {
-      props.logOut();
-    });
+    if (window.confirm('Are you sure you want to delete this account?')) {
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${token.user._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then(() => {
+        props.logOut();
+      });
+    };
   };
 
   useEffect(() => {
@@ -103,7 +104,7 @@ function Profile(props) {
         {
           user && 
           (user._id === token.user._id &&
-          <button onClick={deleteAccount}>Delete account</button>)
+          <button className='btn' onClick={deleteAccount}>Delete account</button>)
         }
       </section>
       <main className='main-section'>
