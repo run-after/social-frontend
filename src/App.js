@@ -34,7 +34,7 @@ function App() {
     } else {
       setLoggedIn(false);
     };
-  }, [])
+  }, []);
 
   return (
     <Router>
@@ -48,7 +48,7 @@ function App() {
             <SignUp setLoggedIn={setLoggedIn} />
           </Route>
           <Route path='/users/:userID'>
-            {(!loggedIn && <Redirect to='/login' />) || <Profile />}
+            {(!loggedIn && <Redirect to='/login' />) || <Profile logOut={logOut} />}
           </Route>
           <Route path='/users'>
             {(!loggedIn && <Redirect to='/login' />) || <Users />}
@@ -63,17 +63,3 @@ function App() {
 };
 
 export default App;
-
-// Need to add a way to remove friends on the backend
-
-// When token expires, the app doesn't check the token all the time.
-// It only checks when app is first loaded
-
-// Need to make edit button work on post
-// Need comments to show up on each post
-// Avatar on each post
-// Need to have a comment form
-// Need a default avatar
-// Need a way to make avatar picture work
-// Need to login via real facebook
-// Add likes to post/comments
