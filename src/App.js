@@ -18,6 +18,16 @@ function App() {
     window.location.reload();
   };
 
+  const checkIfTokenIsExpired = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (moment(token.expires) < moment()) {
+      logOut();
+      return true;
+    } else {
+      return false;
+    };
+  };
+
   useEffect(() => {
     // Check if token is expired.
     if (localStorage.getItem('token')) {
@@ -48,13 +58,13 @@ function App() {
             <SignUp setLoggedIn={setLoggedIn} />
           </Route>
           <Route path='/users/:userID'>
-            {(!loggedIn && <Redirect to='/login' />) || <Profile logOut={logOut} />}
+            {(!loggedIn && <Redirect to='/login' />) || <Profile checkIfTokenIsExpired={checkIfTokenIsExpired} logOut={logOut} />}
           </Route>
           <Route path='/users'>
-            {(!loggedIn && <Redirect to='/login' />) || <Users />}
+            {(!loggedIn && <Redirect to='/login' />) || <Users checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
           <Route path='/'>
-            {(!loggedIn && <Redirect to='/login' />) || <Home />}
+            {(!loggedIn && <Redirect to='/login' />) || <Home checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
         </Switch>
       </div>
