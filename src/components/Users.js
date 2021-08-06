@@ -76,6 +76,10 @@ function Users(props) {
 
   const acceptRequest = (person) => {
     if (!props.checkIfTokenIsExpired()) {
+
+      // Remove person from friendRequested state
+      setFriendRequested({ data: friendRequested.data.filter(friend => friend !== person._id) });
+
       const currentUser = JSON.parse(localStorage.getItem('token')).user;
 
       // Add current user to person who requested friendship's friend list
