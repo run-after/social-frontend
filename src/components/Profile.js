@@ -17,28 +17,30 @@ function Profile(props) {
 
   const createPost = (e) => {
     e.preventDefault();
-    // API CALL TO CREATE POST
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token.token}`
-      },
-      body: JSON.stringify({ 'content': e.target.content.value, 'author': userID })
-    }).then((initRes) => {
-      initRes.json().then((res) => {
-        if (res.message) {
-          setErrorMessage(res.message);
-        } else {
-          let tempUserPosts = userPosts.data;
-          res.author = user
-          tempUserPosts.unshift(res);
-          setUserPosts({ data: tempUserPosts });
-          setTextAreaText('');
-          setErrorMessage(null);
-        };
+    if (!props.checkIfTokenIsExpired()) {
+      // API CALL TO CREATE POST
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.token}`
+        },
+        body: JSON.stringify({ 'content': e.target.content.value, 'author': userID })
+      }).then((initRes) => {
+        initRes.json().then((res) => {
+          if (res.message) {
+            setErrorMessage(res.message);
+          } else {
+            let tempUserPosts = userPosts.data;
+            res.author = user
+            tempUserPosts.unshift(res);
+            setUserPosts({ data: tempUserPosts });
+            setTextAreaText('');
+            setErrorMessage(null);
+          };
+        });
       });
-    });
+    };
   };
 
   const changeText = (e) => {
@@ -46,53 +48,56 @@ function Profile(props) {
   };
 
   const deleteAccount = () => {
-    if (window.confirm('Are you sure you want to delete this account?')) {
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${token.user._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token.token}`
-        }
-      }).then(() => {
-        props.logOut();
-      });
+    if (!props.checkIfTokenIsExpired()) {
+      if (window.confirm('Are you sure you want to delete this account?')) {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${token.user._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then(() => {
+          props.logOut();
+        });
+      };
     };
   };
 
   useEffect(() => {
-    // Get user from DB
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${userID}`, {
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then((initRes) => {
-      initRes.json().then((user) => {
+    if (!props.checkIfTokenIsExpired()) {
+      // Get user from DB
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${userID}`, {
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then((initRes) => {
+        initRes.json().then((user) => {
 
-        // Get users from DB and set friends in state
-        fetch(`${process.env.REACT_APP_API_DOMAIN}/users`, {
-          headers: {
-            'Authorization': `Bearer ${token.token}`
-          }
-        }).then((initRes) => {
-          initRes.json().then((userList) => {
-            const friendList = userList.filter(person => user.friends.includes(person._id));
-            setFriends(friendList);
+          // Get users from DB and set friends in state
+          fetch(`${process.env.REACT_APP_API_DOMAIN}/users`, {
+            headers: {
+              'Authorization': `Bearer ${token.token}`
+            }
+          }).then((initRes) => {
+            initRes.json().then((userList) => {
+              const friendList = userList.filter(person => user.friends.includes(person._id));
+              setFriends(friendList);
+            });
           });
+          setUser(user);
         });
-        setUser(user);
       });
-    });
 
-    // Get all user's posts
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${userID}/posts`, {
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then((initRes) => {
-      initRes.json().then((post_list) => {
-        setUserPosts({ data: post_list });
+      // Get all user's posts
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${userID}/posts`, {
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then((initRes) => {
+        initRes.json().then((post_list) => {
+          setUserPosts({ data: post_list });
+        });
       });
-    });
-
+    };
   }, [token.token, userID]);
 
   return (
@@ -132,7 +137,7 @@ function Profile(props) {
             {
               userPosts &&
               userPosts.data.map(post => {
-                return <Post key={post._id} posts={userPosts} setPosts={setUserPosts} post={post} />
+                return <Post key={post._id} posts={userPosts} setPosts={setUserPosts} post={post} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />
               })
             }
           </div>

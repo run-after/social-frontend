@@ -14,85 +14,92 @@ function Comment(props) {
   const [comment, setComment] = useState(props.comment);
 
   const changeLikeStatus = (commentID) => {
+    if (!props.checkIfTokenIsExpired()) {
+      // If user has already liked comment...
+      if (commentIsLiked) {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${commentID}/likes`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then(initRes => {
+          initRes.json().then(res => {
+            setCommentIsLiked(false);
+            let tempCommentLikes = commentLikes.data.filter(like => (like.comment !== commentID) && (like.user !== token.user._id));
+            setCommentLikes({ data: tempCommentLikes });
+          });
+        });
+      } else {
+        // If user hasn't already liked comment...
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${commentID}/likes`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then(initRes => {
+          initRes.json().then(res => {
+            setCommentIsLiked(true);
+            let tempCommentLikes = commentLikes.data;
+            tempCommentLikes.push(res);
+            setCommentLikes({ data: tempCommentLikes });
+          });
+        });
+      };
+    };
+  };
 
-    // If user has already liked comment...
-    if (commentIsLiked) {
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${commentID}/likes`, {
+  const editComment = () => {
+    if (!props.checkIfTokenIsExpired()) {
+      setShowEditModal(!showEditModal);
+    };
+  };
+
+  const deleteComment = () => {
+    if (!props.checkIfTokenIsExpired()) {
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${comment.post}/comments/${comment._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token.token}`
         }
-      }).then(initRes => {
-        initRes.json().then(res => {
-          setCommentIsLiked(false);
-          let tempCommentLikes = commentLikes.data.filter(like => (like.comment !== commentID) && (like.user !== token.user._id));
-          setCommentLikes({ data: tempCommentLikes });
+      }).then((res) => {
+        res.json().then((res) => {
+          let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
+          props.setPostComments({ data: comments });
         });
       });
-    } else {
-      // If user hasn't already liked comment...
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${commentID}/likes`, {
-        method: 'POST',
+    };
+  };
+
+  useEffect(() => {
+    if (!props.checkIfTokenIsExpired()) {
+      // Get all likes for comment
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${props.comment._id}/likes`, {
         headers: {
           'Authorization': `Bearer ${token.token}`
         }
       }).then(initRes => {
-        initRes.json().then(res => {
-          setCommentIsLiked(true);
-          let tempCommentLikes = commentLikes.data;
-          tempCommentLikes.push(res);
-          setCommentLikes({ data: tempCommentLikes });
+        initRes.json().then(like_list => {
+          if (like_list.message) {
+            //Not sure what to do - maybe a 404
+          } else {
+            setCommentLikes({ data: like_list });
+            like_list.forEach((like) => {
+              if (like.user === token.user._id) {
+                setCommentIsLiked(true);
+              } else {
+                setCommentIsLiked(false);
+              };
+            });
+          };
         });
       });
     };
-
-  };
-
-  const editComment = () => {
-    setShowEditModal(!showEditModal);
-  };
-
-  const deleteComment = () => {
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${comment.post}/comments/${comment._id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then((res) => {
-      res.json().then((res) => {
-        let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
-        props.setPostComments({ data: comments });
-      });
-    });
-  };
-
-  useEffect(() => {
-    // Get all likes for comment
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.comment.post}/comments/${props.comment._id}/likes`, {
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then(initRes => {
-      initRes.json().then(like_list => {
-        if (like_list.message) {
-          //Not sure what to do - maybe a 404
-        } else {
-          setCommentLikes({ data: like_list });
-          like_list.forEach((like) => {
-            if (like.user === token.user._id) {
-              setCommentIsLiked(true);
-            } else {
-              setCommentIsLiked(false);
-            };
-          });
-        }
-      })
-    })
+    
   }, [props.comment.post, props.comment._id, token.token, token.user._id])
   
   return (
     <div className='comment'>
-      {showEditModal && <EditModal type='comment' closeModal={editComment} content={comment} setComment={setComment} />}
+      {showEditModal && <EditModal type='comment' closeModal={editComment} content={comment} setComment={setComment} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
         <div className='comment-avatar'></div>
         <div className='comment-content'>
           <h6 className='comment-author'>{`${props.comment.author.firstName} ${props.comment.author.lastName}`}</h6>

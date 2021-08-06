@@ -7,38 +7,38 @@ function EditModal(props) {
 
   const editContent = (e) => {
     e.preventDefault();
-
-    if (props.type === 'post') {
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.content._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token.token}`
-        },
-        body: JSON.stringify({ content: e.target.content.value })
-      }).then(initRes => {
-        initRes.json().then(res => {
-          props.closeModal();
-          props.setPost(res);
+    if (!props.checkIfTokenIsExpired()) {
+      if (props.type === 'post') {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.content._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token.token}`
+          },
+          body: JSON.stringify({ content: e.target.content.value })
+        }).then(initRes => {
+          initRes.json().then(res => {
+            props.closeModal();
+            props.setPost(res);
+          });
         });
-      });
-    } else {
-      // Edit comment
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.content.post}/comments/${props.content._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token.token}`
-        },
-        body: JSON.stringify({ content: e.target.content.value })
-      }).then(initRes => {
-        initRes.json().then(res => {
-          props.closeModal();
-          props.setComment(res);
-        });
-      })
+      } else {
+        // Edit comment
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.content.post}/comments/${props.content._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token.token}`
+          },
+          body: JSON.stringify({ content: e.target.content.value })
+        }).then(initRes => {
+          initRes.json().then(res => {
+            props.closeModal();
+            props.setComment(res);
+          });
+        })
+      };
     };
-
   };
   
   return (

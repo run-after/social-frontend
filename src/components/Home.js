@@ -2,7 +2,7 @@ import '../styles/Home.css';
 import { useState, useEffect } from 'react';
 import Post from './Post';
 
-function Home() {
+function Home(props) {
 
   const token = JSON.parse(localStorage.getItem('token'));
 
@@ -12,28 +12,30 @@ function Home() {
 
   const createPost = (e) => {
     e.preventDefault();
-    // API CALL TO CREATE POST
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token.token}`
-      },
-      body: JSON.stringify({ 'content': e.target.content.value, 'author': token.user._id })
-    }).then((initRes) => {
-      initRes.json().then((res) => {
-        if (res.message) {
-          setErrorMessage(res.message);
-        } else {
-          let tempPosts = posts.data;
-          res.author = token.user
-          tempPosts.unshift(res);
-          setPosts({ data: tempPosts });
-          setTextAreaText('');
-          setErrorMessage(null);
-        }
+    if (!props.checkIfTokenIsExpired()) {
+      // API CALL TO CREATE POST
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.token}`
+        },
+        body: JSON.stringify({ 'content': e.target.content.value, 'author': token.user._id })
+      }).then((initRes) => {
+        initRes.json().then((res) => {
+          if (res.message) {
+            setErrorMessage(res.message);
+          } else {
+            let tempPosts = posts.data;
+            res.author = token.user
+            tempPosts.unshift(res);
+            setPosts({ data: tempPosts });
+            setTextAreaText('');
+            setErrorMessage(null);
+          }
+        });
       });
-    });
+    };
   };
 
   const changeText = (e) => {
@@ -41,17 +43,19 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then((initRes) => {
-      initRes.json().then((posts) => {
-        const postFeed = posts.filter(post =>
-          token.user.friends.includes(post.author._id) || post.author._id === token.user._id);
-        setPosts({ data: postFeed });
+    if (!props.checkIfTokenIsExpired()) {
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then((initRes) => {
+        initRes.json().then((posts) => {
+          const postFeed = posts.filter(post =>
+            token.user.friends.includes(post.author._id) || post.author._id === token.user._id);
+          setPosts({ data: postFeed });
+        });
       });
-    });
+    };
   }, [token.token, token.user._id]);
 
   return (
@@ -66,7 +70,7 @@ function Home() {
           <button className='btn' type='submit'>Post</button>
         </form>
         {posts && posts.data.map((post) => {
-          return <Post key={post._id} posts={posts} setPosts={setPosts} post={post} />;
+          return <Post key={post._id} posts={posts} setPosts={setPosts} post={post} checkIfTokenIsExpired={props.checkIfTokenIsExpired}/>;
         })
         }
       </div>

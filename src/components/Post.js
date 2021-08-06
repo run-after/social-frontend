@@ -22,115 +22,123 @@ function Post(props) {
   };
 
   const deletePost = (postID) => {
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then((res) => {
-      res.json().then((res) => {
-        let posts = props.posts.data.filter(post => post._id !== props.post._id);
-        props.setPosts({ data: posts });
-      });
-    });
-  };
-
-  const editPost = () => {
-    setShowEditModal(!showEditModal);
-  };
-
-  const createComment = (e) => {
-    e.preventDefault();
-
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/comments`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token.token}`
-      },
-      body: JSON.stringify({ 'content': textAreaText, 'author': token.user })
-    }).then((initRes) => {
-      initRes.json().then((comment) => {
-        if (comment.message) {
-          setErrorMessage(comment.message);
-        } else {
-          let tempPostComments = postComments.data;
-          comment.author = token.user;
-          tempPostComments.unshift(comment);
-          setPostComments({ data: tempPostComments });
-          setTextAreaText('');
-        };
-      });
-    });
-  };
-
-  const changeLikeStatus = (postID) => {
-    
-    // If user has already liked post...
-    if (postIsLiked) {
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
+    if (!props.checkIfTokenIsExpired()) {
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token.token}`
         }
-      }).then(initRes => {
-        initRes.json().then(res => {
-          setPostIsLiked(false);
-          let tempPostLikes = postLikes.data.filter(like => (like.post !== postID) && (like.user !== token.user._id));
-          setPostLikes({ data: tempPostLikes });
-        });
-      });
-    } else {
-      // If user hasn't already liked post...
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token.token}`
-        }
-      }).then(initRes => {
-        initRes.json().then(res => {
-          setPostIsLiked(true);
-          let tempPostLikes = postLikes.data;
-          tempPostLikes.push(res);
-          setPostLikes({ data: tempPostLikes });
+      }).then((res) => {
+        res.json().then((res) => {
+          let posts = props.posts.data.filter(post => post._id !== props.post._id);
+          props.setPosts({ data: posts });
         });
       });
     };
   };
 
-  useEffect(() => {
-    // Get all post comments
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/comments`, {
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then((initRes) => {
-      initRes.json().then((comment_list) => {
-        setPostComments({ data: comment_list });
-      });
-    });
+  const editPost = () => {
+    if (!props.checkIfTokenIsExpired()) {
+      setShowEditModal(!showEditModal);
+    };
+  };
 
-    // Get all post likes
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/likes`, {
-      headers: {
-        'Authorization': `Bearer ${token.token}`
-      }
-    }).then(initRes => {
-      initRes.json().then(res => {
-        if (res.message) {
-          //Not sure what to do - maybe a 404
-        } else {
-          setPostLikes({ data: res });
-          res.forEach((like) => {
-            if (like.user === token.user._id) {
-              setPostIsLiked(true);
-            } else {
-              setPostIsLiked(false);
-            };
-          });
-        };
+  const createComment = (e) => {
+    e.preventDefault();
+    if (!props.checkIfTokenIsExpired()) {
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.token}`
+        },
+        body: JSON.stringify({ 'content': textAreaText, 'author': token.user })
+      }).then((initRes) => {
+        initRes.json().then((comment) => {
+          if (comment.message) {
+            setErrorMessage(comment.message);
+          } else {
+            let tempPostComments = postComments.data;
+            comment.author = token.user;
+            tempPostComments.unshift(comment);
+            setPostComments({ data: tempPostComments });
+            setTextAreaText('');
+          };
+        });
       });
-    });
+    };
+  };
+
+  const changeLikeStatus = (postID) => {
+    if (!props.checkIfTokenIsExpired()) {
+      // If user has already liked post...
+      if (postIsLiked) {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then(initRes => {
+          initRes.json().then(res => {
+            setPostIsLiked(false);
+            let tempPostLikes = postLikes.data.filter(like => (like.post !== postID) && (like.user !== token.user._id));
+            setPostLikes({ data: tempPostLikes });
+          });
+        });
+      } else {
+        // If user hasn't already liked post...
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then(initRes => {
+          initRes.json().then(res => {
+            setPostIsLiked(true);
+            let tempPostLikes = postLikes.data;
+            tempPostLikes.push(res);
+            setPostLikes({ data: tempPostLikes });
+          });
+        });
+      };
+    };
+  };
+
+  useEffect(() => {
+    if (!props.checkIfTokenIsExpired()) {
+      // Get all post comments
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/comments`, {
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then((initRes) => {
+        initRes.json().then((comment_list) => {
+          setPostComments({ data: comment_list });
+        });
+      });
+
+      // Get all post likes
+      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${props.post._id}/likes`, {
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      }).then(initRes => {
+        initRes.json().then(res => {
+          if (res.message) {
+            //Not sure what to do - maybe a 404
+          } else {
+            setPostLikes({ data: res });
+            res.forEach((like) => {
+              if (like.user === token.user._id) {
+                setPostIsLiked(true);
+              } else {
+                setPostIsLiked(false);
+              };
+            });
+          };
+        });
+      });
+    };
   }, [token.token, props.post._id, token.user._id])
 
   return (
@@ -169,7 +177,7 @@ function Post(props) {
           </form>
           {
             postComments.data.map(comment => {
-              return <Comment key={comment._id} comment={comment} postComments={postComments} setPostComments={setPostComments} />;
+              return <Comment key={comment._id} comment={comment} postComments={postComments} setPostComments={setPostComments} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />;
             })
           }
         </div>
