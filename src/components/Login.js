@@ -2,6 +2,7 @@ import '../styles/Login.css';
 import { useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 function Login(props) {
 
@@ -47,6 +48,21 @@ function Login(props) {
     });
   };
 
+  const facebookLogin = (response) => {
+    fetch(`${process.env.REACT_APP_API_DOMAIN}/login/facebook`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(response)
+    }).then((initRes) => {
+      initRes.json().then(res => {
+        setTokenWithExpiration(res);
+        redirectToHome();
+      });
+    });
+  };
+
   return (
     <div className="login">
       <form className='login-form' onSubmit={login}>
@@ -54,8 +70,19 @@ function Login(props) {
         <h5>Log in</h5>
         <input id='username' type='email' placeholder='email' required />
         <input id='password' type='password' placeholder='password' required />
-        <button type='submit'>Log in</button>
+        <button className='btn' type='submit'>Log in</button>
       </form>
+      <div className='spacer'>OR</div>
+      <FacebookLogin
+        appId="343361590828520"
+        autoLoad
+        callback={facebookLogin}
+        render={
+          renderProps => (
+          <button className='facebook-btn btn' onClick={renderProps.onClick}>Log in with Facebook</button>
+          )
+        }
+      />
     </div>
   );
 }
