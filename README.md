@@ -9,3 +9,19 @@ From The Odin Project (https://www.theodinproject.com/paths/full-stack-javascrip
 - **Deployed on Github Pages**
 
 This is the frontend of a Facebook clone. It makes API calls to the [backend](https://github.com/run-after/social-backend) that was made with Node.js/express.
+
+Utilizing react-router-dom, there is a router that has profile, home, user list, log in, and sign up.
+
+The user can only access the log in page and sign up page if they are not logged in. Once the user is logged in, they can access everything.
+
+React-facebook-login was used to allow user to create an account, and log into their account via Facebook.
+
+From the login page, the user can either log in with an existing email/password, or log in via Facebook.
+
+From the sign up page, the user can enter in all of their information and create an account, which will be saved in the DB.
+
+The home page is just like the Facebook timeline. The user can see all the posts from their friends and themselves, sorted in descending order. On the home page, there is a form to create a new post. On the timeline, each post can be viewd, liked, and commented on. If the post belongs to the user that is logged in, they can edit it, or delete it. Each post also has a button to view associated comments, as well as a comment creation form. Again, if the user that is signed in is the author of the comment, they can edit/delete that comment. The user can also like/unlike comments.
+
+From the profile page, the user can see all the posts they have created, sorted in descending order. There is a form to create a new post. On the timeline, each post can be viewd, liked, and commented on. If the post belongs to the user that is logged in, they can edit it, or delete it. Each post also has a button to view associated comments, as well as a comment creation form. Again, if the user that is signed in is the author of the comment, they can edit/delete that comment. The user can also like/unlike comments. If the current user is viewing their own profile page, they can vieww their friends, delete their account, change their avatar photo.
+
+From the user list page, the user can view all users, send friend requests, accept friend requests, and remove friends. The button changes based on the status of the friendship/friend request.
