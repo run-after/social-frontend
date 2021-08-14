@@ -51,3 +51,13 @@
   text-decoration: none;
   margin: 5px;
 }
+
+@media (max-width: 675px) {
+  .logo-text {
+    display: none;
+  }
+
+  .nav-bar-list-item {
+    margin: 0 10px;
+  }
+}
