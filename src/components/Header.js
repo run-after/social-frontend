@@ -10,7 +10,7 @@ function Header(props) {
     <header className="header">
       <div className='logo'>
         <img className='icon' src={icon} alt='social'/>
-        <p>social</p>
+        <p className='logo-text'>social</p>
       </div>
       <nav className='nav-bar'>
         <ul className='nav-bar-list'>
