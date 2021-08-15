@@ -46,6 +46,10 @@
   font-weight: bold;
 }
 
+.post .post-author:hover {
+  opacity: 0.75;
+}
+
 .post-time {
   font-size: 0.5em;
   padding: 5px;
