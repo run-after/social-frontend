@@ -4,6 +4,7 @@ import { FaRegThumbsUp } from 'react-icons/fa';
 import Comment from './Comment';
 import { useState, useEffect } from 'react';
 import EditModal from './EditModal';
+import { Link } from 'react-router-dom';
 
 function Post(props) {
   const token = JSON.parse(localStorage.getItem('token'));
@@ -145,7 +146,7 @@ function Post(props) {
     <div className='post'>
       {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} />}
       <div className='post-header'>
-        <span className='post-author'>{props.post.author.firstName} {props.post.author.lastName}</span>
+        <Link className='post-author' to={`/users/${props.post.author._id}`}>{props.post.author.firstName} {props.post.author.lastName}</Link>
         <span className='post-time'>{new Date(props.post.createdAt).toLocaleString()}</span>
         {
           props.post.author._id === token.user._id &&
