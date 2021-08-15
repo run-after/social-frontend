@@ -1,7 +1,7 @@
 import '../styles/Profile.css';
 import Post from './Post';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
 
 function Profile(props) {
@@ -126,12 +126,20 @@ function Profile(props) {
         }
         <div className='user-feed'>
           <section className='left-section'>
-            Friends: 
-            {
-              friends && friends.map((friend) => {
-                return <p key={friend._id}>{friend.firstName}</p>
-              })
-            }
+            <h5 className='title'>Friends</h5>
+            <p className='friend-count'>{`${friends && friends.length} friends`}</p>
+            <div className='friend-tiles'>
+              {
+                friends && friends.map((friend) => {
+                  return (
+                    <Link key={friend._id} className='friend' to={`/users/${friend._id}`}>
+                      <div className='img-placeholder'></div>
+                      <p className='friend-name'>{`${friend.firstName} ${friend.lastName}`}</p>
+                    </Link>
+                  )
+                })
+              }
+            </div>
           </section>
           <div className='post-feed'>
             {
