@@ -1,6 +1,8 @@
 import '../styles/Home.css';
 import { useState, useEffect } from 'react';
 import Post from './Post';
+import { Link } from 'react-router-dom';
+import {BsFillPeopleFill } from 'react-icons/bs';
 
 function Home(props) {
 
@@ -60,7 +62,18 @@ function Home(props) {
 
   return (
     <div className="home">
-      <div className='left-column'>Left</div>
+      <div className='left-column'>
+        <Link className='current-user' to={`/users/${token.user._id}`}>
+          <div className='left-column-image'></div>
+          {token.user.firstName} {token.user.lastName}
+        </Link>
+        <Link className='friends' to='/users'>
+          <div className='left-column-image'>
+            <BsFillPeopleFill />
+          </div>
+          Friends
+        </Link>
+      </div>
       <div className='post-feed'>
         <form className='post-form' onSubmit={createPost}>
           <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
