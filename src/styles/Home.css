@@ -3,6 +3,35 @@
   display: flex;
 }
 
+.home .left-column {
+  margin-top: 50px;
+}
+
 .home .post-feed {
   width: 50%;
+}
+
+.home .left-column .current-user,
+.home .left-column .friends {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.home .left-column .current-user:hover,
+.home .left-column .friends:hover {
+  opacity: 0.75;
+}
+
+.home .left-column .left-column-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  background: gray;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  color: white;
 }
