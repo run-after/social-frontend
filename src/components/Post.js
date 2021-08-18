@@ -146,7 +146,10 @@ function Post(props) {
     <div className='post'>
       {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} />}
       <div className='post-header'>
-        <Link className='post-author' to={`/users/${props.post.author._id}`}>{props.post.author.firstName} {props.post.author.lastName}</Link>
+        <Link className='post-author' to={`/users/${props.post.author._id}`}>
+          <div className='post-avatar'></div>
+          {props.post.author.firstName} {props.post.author.lastName}
+        </Link>
         <span className='post-time'>{new Date(props.post.createdAt).toLocaleString()}</span>
         {
           props.post.author._id === token.user._id &&
