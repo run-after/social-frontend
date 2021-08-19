@@ -56,17 +56,19 @@ function Comment(props) {
 
   const deleteComment = () => {
     if (!props.checkIfTokenIsExpired()) {
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${comment.post}/comments/${comment._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token.token}`
-        }
-      }).then((res) => {
-        res.json().then((res) => {
-          let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
-          props.setPostComments({ data: comments });
+      if (window.confirm('Are you sure you want to delete this comment?')) {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${comment.post}/comments/${comment._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then((res) => {
+          res.json().then((res) => {
+            let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
+            props.setPostComments({ data: comments });
+          });
         });
-      });
+      };
     };
   };
 
