@@ -100,7 +100,7 @@ function Comment(props) {
   return (
     <div className='comment'>
       {showEditModal && <EditModal type='comment' closeModal={editComment} content={comment} setComment={setComment} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
-        <div className='comment-avatar'></div>
+        <img className='comment-avatar' src={props.comment.author.avatar} alt={`${props.comment.author.firstName}'s avatar`} />
         <div className='comment-content'>
           <h6 className='comment-author'>{`${props.comment.author.firstName} ${props.comment.author.lastName}`}</h6>
           <div className='comment-button-container'>
