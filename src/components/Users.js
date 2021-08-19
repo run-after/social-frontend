@@ -191,7 +191,9 @@ function Users(props) {
         if (user._id !== token.user._id) {
           return (
             <div key={user._id} className='user'>
-              <Link className='user-image'to={`/users/${user._id}`}><BsFillPersonFill /></Link>
+              <Link className='user-image-backdrop' to={`/users/${user._id}`}>
+                <img className='user-image' src={user.avatar} alt={`${user.firstName}'s avatar`} />
+              </Link>
               <h5 className='user-name'><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></h5>
               {
                 (friendList.data.includes(user._id) && <button className='remove-friend-button btn' onClick={() => removeFriend(user)}>Remove friend</button>) || 
