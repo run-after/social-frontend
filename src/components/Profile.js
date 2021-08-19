@@ -134,7 +134,7 @@ function Profile(props) {
                 friends && friends.map((friend) => {
                   return (
                     <Link key={friend._id} className='friend' to={`/users/${friend._id}`}>
-                      <div className='img-placeholder'></div>
+                      <img className='friend-avatar' src={friend.avatar} alt={`${friend.firstName}'s avatar`} />
                       <p className='friend-name'>{`${friend.firstName} ${friend.lastName}`}</p>
                     </Link>
                   )
