@@ -2,7 +2,6 @@ import '../styles/Profile.css';
 import Post from './Post';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { BsFillPersonFill } from 'react-icons/bs';
 
 function Profile(props) {
 
@@ -103,7 +102,9 @@ function Profile(props) {
   return (
     <div className='profile-page'>
       <section className='hero-section'>
-        <div className='user-image'><BsFillPersonFill /></div>
+        <div className='user-image-backdrop'>
+          {user && <img className='user-avatar' src={user.avatar} alt={`${user.firstName}'s avatar`} />}
+        </div>
         {user && <h4 className='user-name'>{user.firstName} {user.lastName}</h4>}
         {user && <p>Member since: {new Date(user.createdAt).toLocaleDateString()}</p>}
         {
@@ -156,3 +157,5 @@ function Profile(props) {
 };
 
 export default Profile;
+
+// Might make user-image-backdrop another image like facebook has
