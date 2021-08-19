@@ -24,17 +24,19 @@ function Post(props) {
 
   const deletePost = (postID) => {
     if (!props.checkIfTokenIsExpired()) {
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token.token}`
-        }
-      }).then((res) => {
-        res.json().then((res) => {
-          let posts = props.posts.data.filter(post => post._id !== props.post._id);
-          props.setPosts({ data: posts });
+      if (window.confirm('Are you sure you want to delete this post?')) {
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          }
+        }).then((res) => {
+          res.json().then((res) => {
+            let posts = props.posts.data.filter(post => post._id !== props.post._id);
+            props.setPosts({ data: posts });
+          });
         });
-      });
+      };
     };
   };
 
