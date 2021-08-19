@@ -147,7 +147,7 @@ function Post(props) {
       {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} />}
       <div className='post-header'>
         <Link className='post-author' to={`/users/${props.post.author._id}`}>
-          <div className='post-avatar'></div>
+          <img className='comment-avatar' src={props.post.author.avatar} alt={`${props.post.author.firstName}'s avatar`} />
           {props.post.author.firstName} {props.post.author.lastName}
         </Link>
         <span className='post-time'>{new Date(props.post.createdAt).toLocaleString()}</span>
@@ -172,7 +172,7 @@ function Post(props) {
         displayComments &&
         <div className='comments'>
           <form className='comment-form' onSubmit={createComment}>
-            <div className='comment-avatar'></div>
+            <img className='comment-avatar' src={token.user.avatar} alt={`${token.user.firstName}'s avatar`} />
             <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
               {<div className='error-message'>{errorMessage}</div>}
               <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='Write comment...' required />
