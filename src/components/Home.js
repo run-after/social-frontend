@@ -64,7 +64,7 @@ function Home(props) {
     <div className="home">
       <div className='left-column'>
         <Link className='current-user' to={`/users/${token.user._id}`}>
-          <div className='left-column-image'></div>
+          <img className='left-column-image' src={token.user.avatar} alt={`${token.user.firstName}'s avatar`} />
           {token.user.firstName} {token.user.lastName}
         </Link>
         <Link className='friends' to='/users'>
