@@ -15,7 +15,7 @@
   background: white;
 }
 
-.user .user-image {
+.user .user-image-backdrop {
   height: 50%;
   width: 100%;
   background: rgb(194, 194, 194);
@@ -24,8 +24,10 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  color: white;
-  font-size: 6em;
+}
+
+.user .user-image {
+  height: 100%;
 }
 
 .user .user-name {
