@@ -1,4 +1,4 @@
-import '../styles/EditModal.css';
+import '../styles/EditContentModal.css';
 import { BsX } from 'react-icons/bs';
 
 function EditModal(props) {
