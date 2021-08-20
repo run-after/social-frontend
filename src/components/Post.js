@@ -146,7 +146,7 @@ function Post(props) {
 
   return (
     <div className='post'>
-      {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} />}
+      {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
       <div className='post-header'>
         <Link className='post-author' to={`/users/${props.post.author._id}`}>
           <img className='comment-avatar' src={props.post.author.avatar} alt={`${props.post.author.firstName}'s avatar`} />
