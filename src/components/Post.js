@@ -3,7 +3,7 @@ import { BsFillTrashFill, BsPencil, BsChatDots } from 'react-icons/bs';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import Comment from './Comment';
 import { useState, useEffect } from 'react';
-import EditModal from './EditModal';
+import EditModal from './EditContentModal';
 import { Link } from 'react-router-dom';
 
 function Post(props) {

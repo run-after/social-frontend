@@ -2,7 +2,7 @@ import '../styles/Comment.css';
 import { useState, useEffect } from 'react';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import { BsPencil, BsTrashFill } from 'react-icons/bs';
-import EditModal from './EditModal';
+import EditModal from './EditContentModal';
 
 function Comment(props) {
 
