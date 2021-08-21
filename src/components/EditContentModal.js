@@ -1,7 +1,7 @@
 import '../styles/EditContentModal.css';
 import { BsX } from 'react-icons/bs';
 
-function EditModal(props) {
+function EditContentModal(props) {
 
   const token = JSON.parse(localStorage.getItem('token'));
 
@@ -60,4 +60,4 @@ function EditModal(props) {
   );
 }
 
-export default EditModal;
+export default EditContentModal;
