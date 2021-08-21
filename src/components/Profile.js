@@ -1,7 +1,9 @@
 import '../styles/Profile.css';
 import Post from './Post';
+import EditUserModal from './EditUserModal';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { BsPencil } from 'react-icons/bs';
 
 function Profile(props) {
 
@@ -13,6 +15,7 @@ function Profile(props) {
   const [textAreaText, setTextAreaText] = useState('');
   const [friends, setFriends] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const createPost = (e) => {
     e.preventDefault();
@@ -44,6 +47,12 @@ function Profile(props) {
 
   const changeText = (e) => {
     setTextAreaText(e.target.value);
+  };
+
+  const editUser = () => {
+    if (!props.checkIfTokenIsExpired()) {
+      setShowEditModal(!showEditModal);
+    };
   };
 
   const deleteAccount = () => {
@@ -102,8 +111,14 @@ function Profile(props) {
   return (
     <div className='profile-page'>
       <section className='hero-section'>
+        {showEditModal && <EditUserModal closeModal={editUser} user={user} setUser={setUser} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
         <div className='user-image-backdrop'>
           {user && <img className='user-avatar' src={user.avatar} alt={`${user.firstName}'s avatar`} />}
+          {
+            user && 
+            (user._id === token.user._id &&
+            <button onClick={editUser} className='edit-user-btn'><BsPencil /></button>)
+          }
         </div>
         {user && <h4 className='user-name'>{user.firstName} {user.lastName}</h4>}
         {user && <p>Member since: {new Date(user.createdAt).toLocaleDateString()}</p>}
