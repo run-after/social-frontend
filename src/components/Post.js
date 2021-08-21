@@ -149,7 +149,7 @@ function Post(props) {
       {showEditModal && <EditModal type='post' closeModal={editPost} content={post} setPost={setPost} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
       <div className='post-header'>
         <Link className='post-author' to={`/users/${props.post.author._id}`}>
-          <img className='comment-avatar' src={props.post.author.avatar} alt={`${props.post.author.firstName}'s avatar`} />
+          <img className='post-avatar' src={props.post.author.avatar} alt={`${props.post.author.firstName}'s avatar`} />
           {props.post.author.firstName} {props.post.author.lastName}
         </Link>
         <span className='post-time'>{new Date(props.post.createdAt).toLocaleString()}</span>
