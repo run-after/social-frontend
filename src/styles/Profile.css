@@ -30,6 +30,23 @@
   align-items: flex-end;
 }
 
+.profile-page .edit-user-btn {
+  position: absolute;
+  align-self: flex-end;
+  margin-top: 20px;
+  margin-left: 150px;
+  color: black;
+  border-radius: 100%;
+  border: none;
+  background: transparent;
+  font-size: 1.5em;
+}
+
+.profile-page .edit-user-btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
 .profile-page .user-avatar {
   height: 200px;
   border-radius: 100%;
