@@ -1,6 +1,5 @@
 import '../styles/Users.css';
 import { useState, useEffect } from 'react';
-import { BsFillPersonFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 function Users(props) {
