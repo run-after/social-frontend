@@ -15,57 +15,58 @@ function EditUserModal(props) {
 
   const editUser = (e) => {
     e.preventDefault();
-
-    if (picture) {
-      let formData = new FormData();
-      formData.append('name', new Date().toString());
-      formData.append('image', picture);
-      // upload avatar to S3
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/imageUpload/${props.user._id}/avatar-upload`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token.token}`
-        },
-        body: formData
-      }).then(initRes => {
-        initRes.json().then(imageURL => {
-          // update user
-          let tempUser = {};
-          Object.assign(tempUser, props.user);
-          tempUser.firstname = e.target.firstName.value;
-          tempUser.lastName = e.target.lastName.value;
-          tempUser.avatar = imageURL;
-          fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${props.user._id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token.token}`
-            },
-            body: JSON.stringify(tempUser)
+    if (!props.checkIfTokenIsExpired()) {
+      if (picture) {
+        let formData = new FormData();
+        formData.append('name', new Date().toString());
+        formData.append('image', picture);
+        // upload avatar to S3
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/imageUpload/${props.user._id}/avatar-upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token.token}`
+          },
+          body: formData
+        }).then(initRes => {
+          initRes.json().then(imageURL => {
+            // update user
+            let tempUser = {};
+            Object.assign(tempUser, props.user);
+            tempUser.firstname = e.target.firstName.value;
+            tempUser.lastName = e.target.lastName.value;
+            tempUser.avatar = imageURL;
+            fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${props.user._id}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.token}`
+              },
+              body: JSON.stringify(tempUser)
+            });
+            token.user = tempUser;
+            props.setUser(tempUser);
+            localStorage.setItem('token', JSON.stringify(token));
           });
-          token.user = tempUser;
-          props.setUser(tempUser);
-          localStorage.setItem('token', JSON.stringify(token));
         });
-      });
-    } else {
-      let tempUser = {};
-      Object.assign(tempUser, props.user);
-      tempUser.firstName = e.target.firstName.value;
-      tempUser.lastName = e.target.lastName.value;
-      fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${props.user._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token.token}`
-        },
-        body: JSON.stringify(tempUser)
-      });
-      token.user = tempUser;
-      props.setUser(tempUser);
-      localStorage.setItem('token', JSON.stringify(token));
+      } else {
+        let tempUser = {};
+        Object.assign(tempUser, props.user);
+        tempUser.firstName = e.target.firstName.value;
+        tempUser.lastName = e.target.lastName.value;
+        fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${props.user._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token.token}`
+          },
+          body: JSON.stringify(tempUser)
+        });
+        token.user = tempUser;
+        props.setUser(tempUser);
+        localStorage.setItem('token', JSON.stringify(token));
+      };
+      props.closeModal();
     };
-    props.closeModal();
   };
   
   return (
