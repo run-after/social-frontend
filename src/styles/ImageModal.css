@@ -2,10 +2,12 @@
   width: 500px;
   background: white;
   position: fixed;
-  margin-top: 50px;
+  margin: 50px auto;
   z-index: 100;
   border: 1px solid black;
   border-radius: 20px;
+  left: 0;
+  right: 0;
 }
 
 .upload-image-btn {
