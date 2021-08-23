@@ -3,7 +3,8 @@ import Post from './Post';
 import EditUserModal from './EditUserModal';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { BsPencil } from 'react-icons/bs';
+import { BsPencil, BsFillImageFill } from 'react-icons/bs';
+import ImageModal from './ImageModal';
 
 function Profile(props) {
 
@@ -16,6 +17,7 @@ function Profile(props) {
   const [friends, setFriends] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   const createPost = (e) => {
     e.preventDefault();
@@ -70,6 +72,10 @@ function Profile(props) {
     };
   };
 
+  const uploadImage = () => {
+    setShowImageModal(!showImageModal);
+  };
+
   useEffect(() => {
     if (!props.checkIfTokenIsExpired()) {
       // Get user from DB
@@ -112,6 +118,7 @@ function Profile(props) {
     <div className='profile-page'>
       <section className='hero-section'>
         {showEditModal && <EditUserModal closeModal={editUser} user={user} setUser={setUser} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
+        {showImageModal && <ImageModal closeModal={uploadImage} userPosts={userPosts} setUserPosts={setUserPosts} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
         <div className='user-image-backdrop'>
           {user && <img className='user-avatar' src={user.avatar} alt={`${user.firstName}'s avatar`} />}
           {
@@ -135,9 +142,10 @@ function Profile(props) {
           <form className='post-form' onSubmit={createPost}>
             <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
               {<div className='error-message'>{errorMessage}</div>}
-              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required />
+              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' />
             </div>
             <button className='btn' type='submit'>Post</button>
+            <button className='btn' onClick={uploadImage}><BsFillImageFill /></button>
           </form>
         }
         <div className='user-feed'>
