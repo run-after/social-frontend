@@ -164,7 +164,7 @@ function Post(props) {
       </div>
       <div className='post-content'>
         {
-          (post.isPicture && <img src={post.content} alt={post._id} className='post-image'/>) ||
+          (post.isPicture && <img src={post.content} alt={post.content} className='post-image'/>) ||
           post.content
         }
       </div>
