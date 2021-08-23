@@ -163,7 +163,10 @@ function Post(props) {
         }
       </div>
       <div className='post-content'>
-        {post.content}
+        {
+          (post.isPicture && <img src={post.content} alt={post._id} className='post-image'/>) ||
+          post.content
+        }
       </div>
       <div className='action-buttons'>
         <button className='action-button' onClick={() => { changeLikeStatus(props.post._id) }}><FaRegThumbsUp />{(!postIsLiked && 'Like') || 'Unlike'}</button>
