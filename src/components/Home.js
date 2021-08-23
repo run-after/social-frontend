@@ -2,7 +2,8 @@ import '../styles/Home.css';
 import { useState, useEffect } from 'react';
 import Post from './Post';
 import { Link } from 'react-router-dom';
-import {BsFillPeopleFill } from 'react-icons/bs';
+import { BsFillPeopleFill, BsFillImageFill } from 'react-icons/bs';
+import ImageModal from './ImageModal';
 
 function Home(props) {
 
@@ -11,6 +12,7 @@ function Home(props) {
   const [posts, setPosts] = useState({data: []});
   const [textAreaText, setTextAreaText] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   const createPost = (e) => {
     e.preventDefault();
@@ -44,6 +46,10 @@ function Home(props) {
     setTextAreaText(e.target.value);
   };
 
+  const uploadImage = () => {
+    setShowImageModal(!showImageModal);
+  };
+
   useEffect(() => {
     if (!props.checkIfTokenIsExpired()) {
       fetch(`${process.env.REACT_APP_API_DOMAIN}/posts`, {
@@ -75,12 +81,14 @@ function Home(props) {
         </Link>
       </div>
       <div className='post-feed'>
+        {showImageModal && <ImageModal closeModal={uploadImage} userPosts={posts} setUserPosts={setPosts} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
         <form className='post-form' onSubmit={createPost}>
           <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
             {<div className='error-message'>{errorMessage}</div>}
             <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
           </div>
           <button className='btn' type='submit'>Post</button>
+          <button className='btn' onClick={uploadImage}><BsFillImageFill /></button>
         </form>
         {posts && posts.data.map((post) => {
           return <Post key={post._id} posts={posts} setPosts={setPosts} post={post} checkIfTokenIsExpired={props.checkIfTokenIsExpired}/>;
@@ -95,3 +103,6 @@ export default Home;
 
 // When i add token.user.friends to dependency array on useEffect it keeps
 // making calls to api
+
+// My  button for friends on left column goes to user page... not a page 
+// full of actual friends
