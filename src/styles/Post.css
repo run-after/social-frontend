@@ -71,6 +71,10 @@
   margin-top: 10px;
 }
 
+.post-image {
+  width: 100%;
+}
+
 .post .action-buttons {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
