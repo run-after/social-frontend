@@ -49,6 +49,7 @@ function ImageModal(props) {
         });
       };
     };
+    props.closeModal();
   };
   
   return (
