@@ -67,8 +67,13 @@
   border-radius: 10px;
 }
 
+.profile-page .post-form-container {
+  width: 95%;
+}
+
 .profile-page .post-form {
   width: 95%;
+  display: flex;
 }
 
 .profile-page .user-feed {

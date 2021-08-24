@@ -7,6 +7,11 @@
   margin-top: 50px;
 }
 
+.home .post-form {
+  width: 100%;
+  display: flex;
+}
+
 .home .post-feed {
   width: 50%;
 }

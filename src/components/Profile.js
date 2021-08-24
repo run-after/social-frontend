@@ -139,14 +139,16 @@ function Profile(props) {
         {
           // Only display post form if currentUser
           user && user._id === token.user._id &&
-          <form className='post-form' onSubmit={createPost}>
+          <div className='post-form-container'>
+            <form className='post-form' onSubmit={createPost}>
             <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
               {<div className='error-message'>{errorMessage}</div>}
-              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' />
+              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required />
             </div>
             <button className='btn' type='submit'>Post</button>
+            </form>
             <button className='btn' onClick={uploadImage}><BsFillImageFill /></button>
-          </form>
+          </div>
         }
         <div className='user-feed'>
           <section className='left-section'>

@@ -82,14 +82,17 @@ function Home(props) {
       </div>
       <div className='post-feed'>
         {showImageModal && <ImageModal closeModal={uploadImage} userPosts={posts} setUserPosts={setPosts} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
-        <form className='post-form' onSubmit={createPost}>
-          <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
-            {<div className='error-message'>{errorMessage}</div>}
-            <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
-          </div>
-          <button className='btn' type='submit'>Post</button>
+        <div className='post-form-container'>
+          <form className='post-form' onSubmit={createPost}>
+            <div className={`text-area-container ${errorMessage && 'highlight-error'}`}>
+              {<div className='error-message'>{errorMessage}</div>}
+              <textarea id='content' name='content' onChange={changeText} value={textAreaText} placeholder='What is on your mind?' required></textarea>
+            </div>
+            <button className='btn' type='submit'>Post</button>
+          </form>
           <button className='btn' onClick={uploadImage}><BsFillImageFill /></button>
-        </form>
+        </div>
+        
         {posts && posts.data.map((post) => {
           return <Post key={post._id} posts={posts} setPosts={setPosts} post={post} checkIfTokenIsExpired={props.checkIfTokenIsExpired}/>;
         })

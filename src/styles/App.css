@@ -17,7 +17,7 @@
   width: 25%;
 }
 
-.post-form {
+.post-form-container {
   display: flex;
   padding: 5px;
   border-radius: 10px;
@@ -26,7 +26,7 @@
   box-shadow: 10px 5px 5px rgb(192, 192, 192);
 }
 
-.post-form textarea {
+.post-form-container textarea {
   background: rgb(241, 241, 241);
   border-radius: 10px;
   border: none;
