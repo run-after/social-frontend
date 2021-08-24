@@ -8,10 +8,10 @@ function Header(props) {
 
   return (
     <header className="header">
-      <div className='logo'>
+      <Link  className='logo' to='/'>
         <img className='icon' src={icon} alt='social'/>
         <p className='logo-text'>social</p>
-      </div>
+      </Link>
       <nav className='nav-bar'>
         <ul className='nav-bar-list'>
           <li className='nav-bar-list-item'>
