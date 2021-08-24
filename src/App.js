@@ -4,6 +4,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Users from './components/Users';
 import Profile from './components/Profile';
+import Friends from './components/Friends';
 import Home from './components/Home';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
@@ -63,6 +64,9 @@ function App() {
           <Route path='/users'>
             {(!loggedIn && <Redirect to='/login' />) || <Users checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
+          <Route path='/friends'>
+            {(!loggedIn && <Redirect to='/login' />) || <Friends checkIfTokenIsExpired={checkIfTokenIsExpired} />}
+          </Route>
           <Route path='/'>
             {(!loggedIn && <Redirect to='/login' />) || <Home checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
@@ -73,3 +77,9 @@ function App() {
 };
 
 export default App;
+
+// Need ability to get avatar picture from FB
+
+// Make responsive
+
+// I'm passing in checkTokenStatus to everything... Look into context
