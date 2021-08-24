@@ -64,7 +64,7 @@ function ImageModal(props) {
           singleImage={true}
           withPreview={true}
         />
-        <button className='upload-image-btn btn' type='submit'>Upload</button>
+        <button className='upload-image-btn btn' type='submit'>Create Post</button>
       </form>
       <button className='close-modal-button' onClick={props.closeModal}><BsX /></button>
     </div>
