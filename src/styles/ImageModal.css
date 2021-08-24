@@ -8,8 +8,11 @@
   border-radius: 20px;
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: center;
 }
 
-.upload-image-btn {
-  margin: 10px;
+.image-upload-modal form {
+  display: flex;
+  flex-direction: column;
 }
