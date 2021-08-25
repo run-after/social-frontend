@@ -1,17 +1,41 @@
 .profile-page {
   margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .profile-page .hero-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(50%, rgba(255, 255, 255, 1)),
+    to(rgb(237, 238, 231))
+  );
+  background: -o-linear-gradient(
+    bottom,
+    rgba(255, 255, 255, 1) 50%,
+    rgb(237, 238, 231) 100%
+  );
   background: linear-gradient(
     0deg,
     rgba(255, 255, 255, 1) 50%,
     rgb(237, 238, 231) 100%
   );
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -24,14 +48,23 @@
   width: 900px;
   height: 250px;
   background: rgb(194, 194, 194);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
   align-self: center;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
   align-items: flex-end;
 }
 
 .profile-page .edit-user-btn {
   position: absolute;
+  -ms-flex-item-align: end;
   align-self: flex-end;
   margin-top: 20px;
   margin-left: 150px;
@@ -53,10 +86,19 @@
 }
 
 .profile-page .main-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 60%;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
   align-self: center;
 }
 
@@ -73,10 +115,14 @@
 
 .profile-page .post-form {
   width: 95%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .profile-page .user-feed {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
 }
@@ -84,11 +130,17 @@
 .profile-page .left-section {
   width: 40%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   background: white;
   border-radius: 20px;
   padding: 10px;
+  -webkit-box-shadow: 10px 5px 5px rgb(192, 192, 192);
   box-shadow: 10px 5px 5px rgb(192, 192, 192);
 }
 
@@ -104,8 +156,13 @@
 }
 
 .profile-page .left-section .friend-tiles {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
 }
 
@@ -122,6 +179,7 @@
 .profile-page .friend .friend-avatar {
   height: 100px;
   width: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid rgb(177, 177, 177);
@@ -147,6 +205,9 @@
   }
 
   .profile-page .user-feed {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
   .profile-page .left-section {

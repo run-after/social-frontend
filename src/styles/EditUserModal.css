@@ -1,12 +1,15 @@
 .edit-user-modal {
-  height: 100%;
   width: 100%;
   background: rgba(211, 211, 211, 0.75);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 99;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 

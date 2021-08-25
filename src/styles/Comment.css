@@ -1,4 +1,6 @@
 .comment {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 5px;
   margin-top: 20px;
@@ -6,12 +8,14 @@
 }
 
 .comment-avatar {
+  -ms-flex-negative: 0;
   flex-shrink: 0;
   border-radius: 100%;
   background: orange;
   height: 30px;
   width: 30px;
   margin: 5px;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
