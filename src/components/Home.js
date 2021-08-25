@@ -73,7 +73,7 @@ function Home(props) {
           <img className='left-column-image' src={token.user.avatar} alt={`${token.user.firstName}'s avatar`} />
           {token.user.firstName} {token.user.lastName}
         </Link>
-        <Link className='friends' to='/users'>
+        <Link className='friends' to='/friends'>
           <div className='left-column-image'>
             <BsFillPeopleFill />
           </div>
