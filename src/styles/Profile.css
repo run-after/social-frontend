@@ -21,7 +21,7 @@
 }
 
 .profile-page .user-image-backdrop {
-  width: 65%;
+  width: 900px;
   height: 250px;
   background: rgb(194, 194, 194);
   display: flex;
@@ -133,4 +133,42 @@
 
 .profile-page .post-feed {
   width: 60%;
+}
+
+@media (max-width: 1350px) {
+  .profile-page .main-section {
+    width: 75%;
+  }
+}
+
+@media (max-width: 920px) {
+  .profile-page .user-image-backdrop {
+    width: 100%;
+  }
+
+  .profile-page .user-feed {
+    flex-direction: column;
+  }
+  .profile-page .left-section {
+    padding: 0;
+  }
+
+  .profile-page .left-section .title {
+    margin: 20px 0 0 10px;
+  }
+
+  .profile-page .left-section .friend-count {
+    margin-left: 10px;
+  }
+
+  .profile-page .left-section,
+  .profile-page .post-feed {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-page .main-section {
+    width: 90%;
+  }
 }
