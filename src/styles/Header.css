@@ -61,3 +61,17 @@
     margin: 0 10px;
   }
 }
+
+@media (max-width: 500px) {
+  .header .logo .icon {
+    height: 80%;
+  }
+
+  .nav-bar-list {
+    font-size: 1.75em;
+  }
+
+  .header .btn {
+    padding: 5px;
+  }
+}
