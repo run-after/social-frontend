@@ -61,6 +61,7 @@
   -webkit-box-align: end;
   -ms-flex-align: end;
   align-items: flex-end;
+  border-radius: 10px;
 }
 
 .profile-page .edit-user-btn {
@@ -68,17 +69,17 @@
   -ms-flex-item-align: end;
   align-self: flex-end;
   margin-top: 20px;
-  margin-left: 200px;
+  margin-left: 125px;
   color: black;
   border-radius: 100%;
   border: none;
-  background: transparent;
-  font-size: 1.5em;
+  background: #e4e6eb;
+  font-size: 1.25em;
 }
 
 .profile-page .edit-user-btn:hover {
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .profile-page .user-avatar {
