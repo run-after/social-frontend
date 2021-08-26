@@ -43,12 +43,15 @@
   font-weight: bold;
   font-size: 2em;
   margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .profile-page .user-image-backdrop {
   width: 900px;
   height: 250px;
-  background: rgb(194, 194, 194);
+  background-color: #fbab7e;
+  background-image: -o-linear-gradient(28deg, #fbab7e 0%, #f7ce68 100%);
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

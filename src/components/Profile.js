@@ -182,5 +182,3 @@ function Profile(props) {
 };
 
 export default Profile;
-
-// Might make user-image-backdrop another image like facebook has
