@@ -75,7 +75,6 @@ function Login(props) {
       <div className='spacer'>OR</div>
       <FacebookLogin
         appId="343361590828520"
-        autoLoad
         callback={facebookLogin}
         render={
           renderProps => (
