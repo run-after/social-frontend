@@ -2,7 +2,7 @@
   "name": "social-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://run-after.github.io/social-frontend",
+  "homepage": "https://run-after.github.io/social-frontend",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
