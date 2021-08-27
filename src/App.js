@@ -77,9 +77,3 @@ function App() {
 };
 
 export default App;
-
-// Need ability to get avatar picture from FB
-
-// Make responsive
-
-// I'm passing in checkTokenStatus to everything... Look into context
