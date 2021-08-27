@@ -49,7 +49,7 @@ function App() {
   }, []);
 
   return (
-    <Router basename='/social-frontend'>
+    <Router>
       <div className="App">
         <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} logOut={logOut} />
         <Switch>
