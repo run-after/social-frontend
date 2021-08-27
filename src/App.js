@@ -8,17 +8,15 @@ import Friends from './components/Friends';
 import Home from './components/Home';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 function App() {
-
-  let history = useHistory();
 
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
 
   const logOut = () => {
     localStorage.removeItem('token');
-    history.push('/');
+    setLoggedIn(false);
     window.location.reload();
   };
 
