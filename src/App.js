@@ -71,6 +71,9 @@ function App() {
           <Route path='/'>
             {(!loggedIn && <Redirect to='/login' />) || <Home checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
+          <Route path='*'>
+            <Redirect to='/' />
+          </Route>
         </Switch>
       </div>
     </Router>
