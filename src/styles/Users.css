@@ -23,6 +23,8 @@
   -ms-flex-direction: column;
   flex-direction: column;
   background: white;
+  -webkit-box-shadow: 10px 5px 5px rgb(192, 192, 192);
+  box-shadow: 10px 5px 5px rgb(192, 192, 192);
 }
 
 .user .user-image-backdrop {
