@@ -14,6 +14,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  overflow: scroll;
 }
 
 .image-upload-modal form {
@@ -24,4 +25,10 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .image-upload-modal {
+    width: 75%;
+  }
 }
