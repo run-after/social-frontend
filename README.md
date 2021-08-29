@@ -1,5 +1,3 @@
-# Social - A Facebook Clone
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -10,7 +8,9 @@
   <h3 align="center">Social</h3>
 
   <p align="center">
-    A facebook clone
+    A facebook clone 
+    <br />
+    Created as part of The Odin Project (https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs/lessons/odin-book)
     <br />
     <a href="https://github.com/run-after/social-frontend"><strong>Explore the docs »</strong></a>
     <br />
@@ -45,10 +45,8 @@
 ## About The Project
 
 <a href="https://runafter-social.netlify.app">
-  <img src="src/media/social-screenshot.png" alt="Logo" width="75%" height="auto" align='center'>
+  <img src="src/media/social-screenshot.png" alt="Logo" width="100%" height="auto" align='center'>
 </a>
-
-From The Odin Project (https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs/lessons/odin-book)
 
 ### Built With
 
