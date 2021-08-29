@@ -42,7 +42,7 @@ function EditContentModal(props) {
   };
   
   return (
-    <div className='edit-modal'>
+    <div className='edit-content-modal'>
       <div className='edit-form'>
         <header className='edit-form-header'>
           <button className='close-modal-button' onClick={props.closeModal}><BsX /></button>
