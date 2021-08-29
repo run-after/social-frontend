@@ -54,7 +54,8 @@ function ImageModal(props) {
   
   return (
     <div className='image-upload-modal'>
-      <form onSubmit={createImagePost}>
+      <form className='image-upload-form' onSubmit={createImagePost}>
+        <button className='close-modal-button' onClick={props.closeModal}><BsX /></button>
         <ImageUploader
           withIcon={true}
           buttonText='Choose Image'
@@ -66,7 +67,6 @@ function ImageModal(props) {
         />
         <button className='upload-image-btn btn' type='submit'>Create Post</button>
       </form>
-      <button className='close-modal-button' onClick={props.closeModal}><BsX /></button>
     </div>
   );
 }
