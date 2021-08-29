@@ -3,8 +3,6 @@
   height: 100%;
   background: rgba(211, 211, 211, 0.75);
   position: fixed;
-  top: 0;
-  left: 0;
   z-index: 99;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -20,9 +18,13 @@
   max-width: 400px;
   border-radius: 20px;
   background: white;
-  margin-top: 75px;
+  margin-top: 10px;
   -webkit-box-shadow: 10px 5px 5px rgb(180, 180, 180);
   box-shadow: 10px 5px 5px rgb(180, 180, 180);
+}
+
+.edit-user-modal .edit-form-form {
+  border-radius: 20px;
 }
 
 .edit-user-modal .edit-form-header {
@@ -39,4 +41,19 @@
   align-items: center;
   font-size: 1.5em;
   position: relative;
+}
+
+.edit-user-modal .uploadPicturesWrapper {
+  position: absolute;
+  top: -40px;
+}
+
+.edit-user-modal .uploadPictureContainer {
+  width: 50px !important;
+}
+
+@media (max-width: 400px) {
+  .edit-user-modal .uploadPicturesWrapper {
+    top: -35px;
+  }
 }
