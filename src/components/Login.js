@@ -76,7 +76,7 @@ function Login(props) {
       <FacebookLogin
         appId="343361590828520"
         callback={facebookLogin}
-        redirectUri='https://runafter-social.netlify.app'
+        disableMobileRedirect={true}
         render={
           renderProps => (
           <button className='facebook-btn btn' onClick={renderProps.onClick}>Log in with Facebook</button>
