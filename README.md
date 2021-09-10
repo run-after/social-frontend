@@ -32,6 +32,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -50,14 +51,29 @@
 
 ### Built With
 
-- [ReactJS](https://reactjs.org/)
-- Custom CSS
+- [MongoDB](https://www.mongodb.com/)
+- [Express](https://expressjs.com/)
+- [React](https://reactjs.org/)
+- [Nodejs](https://nodejs.org/)
+- [AWS S3](https://aws.amazon.com/s3/)
 
 <!-- GETTING STARTED -->
 
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+Make sure you have npm and node installed
+
+- console
+
+  ```sh
+  npm -v
+  ```
+
+  If you don't have npm installed, follow [this](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ### Installation
 
