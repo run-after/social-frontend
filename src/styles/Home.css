@@ -29,7 +29,8 @@
 }
 
 .home .left-column .current-user,
-.home .left-column .friends {
+.home .left-column .friends,
+.home .left-column .weather-link {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,6 +62,10 @@
   align-items: center;
   font-size: 2em;
   color: white;
+}
+
+.home .left-column .weather-link .left-column-image {
+  background: none;
 }
 
 @media (max-width: 1100px) {

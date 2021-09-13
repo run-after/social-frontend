@@ -79,6 +79,10 @@ function Home(props) {
           </div>
           Friends
         </Link>
+        <Link className='weather-link' to='/weather'>
+          <img className='left-column-image' src='https://social-bucket.s3.us-east-2.amazonaws.com/weather.png' alt='weather' />
+          Weather
+        </Link>
       </div>
       <div className='post-feed'>
         {showImageModal && <ImageModal closeModal={uploadImage} userPosts={posts} setUserPosts={setPosts} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />}
