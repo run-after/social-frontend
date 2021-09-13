@@ -6,6 +6,7 @@ import Users from './components/Users';
 import Profile from './components/Profile';
 import Friends from './components/Friends';
 import Home from './components/Home';
+import Weather from './components/Weather';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -68,6 +69,9 @@ function App() {
           <Route path='/friends'>
             {(!loggedIn && <Redirect to='/login' />) || <Friends checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
+          <Route path='/weather'>
+            {(!loggedIn && <Redirect to='/login' />) || <Weather checkIfTokenIsExpired={checkIfTokenIsExpired} />}
+          </Route>
           <Route path='/'>
             {(!loggedIn && <Redirect to='/login' />) || <Home checkIfTokenIsExpired={checkIfTokenIsExpired} />}
           </Route>
@@ -81,3 +85,6 @@ function App() {
 };
 
 export default App;
+
+// I think I'll add a weather widget on the sidebar of home screen like
+// real facebook
