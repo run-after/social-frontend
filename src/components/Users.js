@@ -7,9 +7,9 @@ function Users(props) {
   const token = JSON.parse(localStorage.getItem('token'));
 
   const [users, setUsers] = useState(null);
-  const [friendRequested, setFriendRequested] = useState({ data: [] });
-  const [requestedFriends, setRequestedFriends] = useState({ data: [] });
-  const [friendList, setFriendList] = useState({ data: token.user.friends });
+  const [friendRequested, setFriendRequested] = useState([]);
+  const [requestedFriends, setRequestedFriends] = useState([]);
+  const [friendList, setFriendList] = useState(token.user.friends);
   
   const requestFriend = (person) => {
     if (!props.checkIfTokenIsExpired()) {
@@ -23,9 +23,9 @@ function Users(props) {
       }).then((initRes) => {
         initRes.json().then(() => {
           // Update state to show that friend was requested
-          let tempRequested = requestedFriends.data;
+          let tempRequested = [...requestedFriends];
           tempRequested.push(person._id);
-          setRequestedFriends({ data: tempRequested });
+          setRequestedFriends(tempRequested);
         });
       }); 
     };
@@ -67,7 +67,7 @@ function Users(props) {
           let updatedToken = JSON.parse(localStorage.getItem('token'));
           updatedToken.user = res;
           localStorage.setItem('token', JSON.stringify(updatedToken));
-          setFriendList({ data: filteredFriends });
+          setFriendList(filteredFriends);
         });
       });
     };
@@ -77,7 +77,7 @@ function Users(props) {
     if (!props.checkIfTokenIsExpired()) {
 
       // Remove person from friendRequested state
-      setFriendRequested({ data: friendRequested.data.filter(friend => friend !== person._id) });
+      setFriendRequested(friendRequested.filter(friend => friend !== person._id));
 
       const currentUser = JSON.parse(localStorage.getItem('token')).user;
 
@@ -94,7 +94,7 @@ function Users(props) {
 
       // Add person who requested friendship to current user's friend list
       currentUser.friends.push(person._id);
-      setFriendList({ data: currentUser.friends });
+      setFriendList(currentUser.friends);
       fetch(`${process.env.REACT_APP_API_DOMAIN}/users/${currentUser._id}`, {
         method: 'PUT',
         headers: {
@@ -171,8 +171,8 @@ function Users(props) {
             };
           });
           if (componentMounted) {
-            setRequestedFriends({ data: requestedFriendList });
-            setFriendRequested({ data: friendRequestedList });  
+            setRequestedFriends(requestedFriendList);
+            setFriendRequested(friendRequestedList);  
           };
           
         });
@@ -195,10 +195,10 @@ function Users(props) {
               </Link>
               <h5 className='user-name'><Link to={`/users/${user._id}`}>{`${user.firstName} ${user.lastName}`}</Link></h5>
               {
-                (friendList.data.includes(user._id) && <button className='remove-friend-button btn' onClick={() => removeFriend(user)}>Remove friend</button>) || 
-                (((requestedFriends.data.includes(user._id) &&
+                (friendList.includes(user._id) && <button className='remove-friend-button btn' onClick={() => removeFriend(user)}>Remove friend</button>) || 
+                (((requestedFriends.includes(user._id) &&
                   <div className='requested-block'>Friend requested</div>) ||
-                (friendRequested.data.includes(user._id) &&
+                (friendRequested.includes(user._id) &&
                   <button className='friend-requested btn' onClick={() => acceptRequest(user)}>Accept request</button>)) ||
                 <button className='add-friend-button btn' onClick={() => requestFriend(user)}>Add friend</button> )
               }
