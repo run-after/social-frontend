@@ -14,7 +14,7 @@ function Post(props) {
   const [displayComments, setDisplayComments] = useState(false);
   const [textAreaText, setTextAreaText] = useState('');
   const [postIsLiked, setPostIsLiked] = useState(false);
-  const [postLikes, setPostLikes] = useState({ data: [] });
+  const [postLikes, setPostLikes] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [post, setPost] = useState(props.post);
 
@@ -62,7 +62,7 @@ function Post(props) {
             setErrorMessage(comment.message);
           } else {
             let tempPostComments = postComments.data;
-            comment.author = token.user;
+            comment.author = token.user;////////////////
             tempPostComments.unshift(comment);
             setPostComments({ data: tempPostComments });
             setTextAreaText('');
@@ -76,6 +76,7 @@ function Post(props) {
     if (!props.checkIfTokenIsExpired()) {
       // If user has already liked post...
       if (postIsLiked) {
+        console.log('unlike')
         fetch(`${process.env.REACT_APP_API_DOMAIN}/posts/${postID}/likes`, {
           method: 'DELETE',
           headers: {
@@ -83,9 +84,9 @@ function Post(props) {
           }
         }).then(initRes => {
           initRes.json().then(res => {
-            setPostIsLiked(false);
-            let tempPostLikes = postLikes.data.filter(like => (like.post !== postID) && (like.user !== token.user._id));
-            setPostLikes({ data: tempPostLikes });
+            setPostIsLiked(false)
+            let tempPostLikes = postLikes.filter(like => (like.post === postID) && (like.user !== token.user._id));
+            setPostLikes(tempPostLikes);
           });
         });
       } else {
@@ -98,9 +99,9 @@ function Post(props) {
         }).then(initRes => {
           initRes.json().then(res => {
             setPostIsLiked(true);
-            let tempPostLikes = postLikes.data;
+            let tempPostLikes = [...postLikes];
             tempPostLikes.push(res);
-            setPostLikes({ data: tempPostLikes });
+            setPostLikes(tempPostLikes);
           });
         });
       };
@@ -130,7 +131,7 @@ function Post(props) {
           if (res.message) {
             //Not sure what to do - maybe a 404
           } else {
-            setPostLikes({ data: res });
+            setPostLikes(res);
             res.forEach((like) => {
               if (like.user === token.user._id) {
                 setPostIsLiked(true);
@@ -172,7 +173,7 @@ function Post(props) {
         <button className='action-button' onClick={() => { changeLikeStatus(props.post._id) }}><FaRegThumbsUp />{(!postIsLiked && 'Like') || 'Unlike'}</button>
         <button className='action-button' onClick={() => { setDisplayComments(!displayComments) }}><BsChatDots />Comment</button>
       </div>
-      <span className='like-count'><FaRegThumbsUp /> {postLikes.data.length}</span>
+      <span className='like-count'><FaRegThumbsUp /> {postLikes.length}</span>
       {
         displayComments &&
         <div className='comments'>
