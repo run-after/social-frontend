@@ -8,7 +8,7 @@ function Comment(props) {
 
   const token = JSON.parse(localStorage.getItem('token'));
 
-  const [commentLikes, setCommentLikes] = useState({ data: [] });
+  const [commentLikes, setCommentLikes] = useState([]);
   const [commentIsLiked, setCommentIsLiked] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [comment, setComment] = useState(props.comment);
@@ -25,8 +25,8 @@ function Comment(props) {
         }).then(initRes => {
           initRes.json().then(res => {
             setCommentIsLiked(false);
-            let tempCommentLikes = commentLikes.data.filter(like => (like.comment !== commentID) && (like.user !== token.user._id));
-            setCommentLikes({ data: tempCommentLikes });
+            let tempCommentLikes = commentLikes.filter(like => (like.comment !== commentID) && (like.user !== token.user._id));
+            setCommentLikes(tempCommentLikes);
           });
         });
       } else {
@@ -39,9 +39,9 @@ function Comment(props) {
         }).then(initRes => {
           initRes.json().then(res => {
             setCommentIsLiked(true);
-            let tempCommentLikes = commentLikes.data;
+            let tempCommentLikes = [...commentLikes];
             tempCommentLikes.push(res);
-            setCommentLikes({ data: tempCommentLikes });
+            setCommentLikes(tempCommentLikes);
           });
         });
       };
@@ -64,8 +64,8 @@ function Comment(props) {
           }
         }).then((res) => {
           res.json().then((res) => {
-            let comments = props.postComments.data.filter(comment => comment._id !== props.comment._id);
-            props.setPostComments({ data: comments });
+            let comments = props.postComments.filter(comment => comment._id !== props.comment._id);
+            props.setPostComments(comments);
           });
         });
       };
@@ -84,7 +84,7 @@ function Comment(props) {
           if (like_list.message) {
             //Not sure what to do - maybe a 404
           } else {
-            setCommentLikes({ data: like_list });
+            setCommentLikes(like_list);
             like_list.forEach((like) => {
               if (like.user === token.user._id) {
                 setCommentIsLiked(true);
@@ -117,7 +117,7 @@ function Comment(props) {
           </div>
           {comment.content}
           <button className='comment-like-button' onClick={() => { changeLikeStatus(props.comment._id) }}>{(!commentIsLiked && 'Like') || 'Unlike'}</button>
-          <span className='like-count'><FaRegThumbsUp />{commentLikes.data.length}</span>
+          <span className='like-count'><FaRegThumbsUp />{commentLikes.length}</span>
         </div>
     </div>
   );
