@@ -12,7 +12,7 @@ function Profile(props) {
   const { userID } = useParams();
 
   const [user, setUser] = useState(null);
-  const [userPosts, setUserPosts] = useState({ data: [] });
+  const [userPosts, setUserPosts] = useState([]);
   const [textAreaText, setTextAreaText] = useState('');
   const [friends, setFriends] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -35,10 +35,10 @@ function Profile(props) {
           if (res.message) {
             setErrorMessage(res.message);
           } else {
-            let tempUserPosts = userPosts.data;
+            let tempUserPosts = [...userPosts];
             res.author = user
             tempUserPosts.unshift(res);
-            setUserPosts({ data: tempUserPosts });
+            setUserPosts(tempUserPosts);
             setTextAreaText('');
             setErrorMessage(null);
           };
@@ -108,7 +108,7 @@ function Profile(props) {
         }
       }).then((initRes) => {
         initRes.json().then((post_list) => {
-          setUserPosts({ data: post_list });
+          setUserPosts(post_list);
         });
       });
     };
@@ -170,7 +170,7 @@ function Profile(props) {
           <div className='post-feed'>
             {
               userPosts &&
-              userPosts.data.map(post => {
+              userPosts.map(post => {
                 return <Post key={post._id} posts={userPosts} setPosts={setUserPosts} post={post} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />
               })
             }
