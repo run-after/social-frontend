@@ -9,7 +9,7 @@ function Home(props) {
 
   const token = JSON.parse(localStorage.getItem('token'));
 
-  const [posts, setPosts] = useState({data: []});
+  const [posts, setPosts] = useState([]);
   const [textAreaText, setTextAreaText] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
@@ -30,10 +30,10 @@ function Home(props) {
           if (res.message) {
             setErrorMessage(res.message);
           } else {
-            let tempPosts = posts.data;
+            let tempPosts = [...posts];
             res.author = token.user
             tempPosts.unshift(res);
-            setPosts({ data: tempPosts });
+            setPosts(tempPosts);
             setTextAreaText('');
             setErrorMessage(null);
           }
@@ -60,7 +60,7 @@ function Home(props) {
         initRes.json().then((posts) => {
           const postFeed = posts.filter(post =>
             token.user.friends.includes(post.author._id) || post.author._id === token.user._id);
-          setPosts({ data: postFeed });
+          setPosts(postFeed);
         });
       });
     };
@@ -97,7 +97,7 @@ function Home(props) {
           <button className='btn' onClick={uploadImage}><BsFillImageFill /></button>
         </div>
         
-        {posts && posts.data.map((post) => {
+        {posts && posts.map((post) => {
           return <Post key={post._id} posts={posts} setPosts={setPosts} post={post} checkIfTokenIsExpired={props.checkIfTokenIsExpired}/>;
         })
         }
