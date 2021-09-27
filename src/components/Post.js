@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 function Post(props) {
   const token = JSON.parse(localStorage.getItem('token'));
 
-  const [postComments, setPostComments] = useState({ data: [] });
+  const [postComments, setPostComments] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [displayComments, setDisplayComments] = useState(false);
   const [textAreaText, setTextAreaText] = useState('');
@@ -61,10 +61,10 @@ function Post(props) {
           if (comment.message) {
             setErrorMessage(comment.message);
           } else {
-            let tempPostComments = postComments.data;
-            comment.author = token.user;////////////////
+            let tempPostComments = [...postComments];
+            comment.author = token.user;
             tempPostComments.unshift(comment);
-            setPostComments({ data: tempPostComments });
+            setPostComments(tempPostComments);
             setTextAreaText('');
           };
         });
@@ -117,7 +117,7 @@ function Post(props) {
         }
       }).then((initRes) => {
         initRes.json().then((comment_list) => {
-          setPostComments({ data: comment_list });
+          setPostComments(comment_list);
         });
       });
 
@@ -186,7 +186,7 @@ function Post(props) {
             <button className='create-comment-button btn'>Submit</button>
           </form>
           {
-            postComments.data.map(comment => {
+            postComments.map(comment => {
               return <Comment key={comment._id} comment={comment} postComments={postComments} setPostComments={setPostComments} checkIfTokenIsExpired={props.checkIfTokenIsExpired} />;
             })
           }
