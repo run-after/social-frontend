@@ -110,6 +110,3 @@ export default Home;
 
 // When i add token.user.friends to dependency array on useEffect it keeps
 // making calls to api
-
-// My  button for friends on left column goes to user page... not a page 
-// full of actual friends
