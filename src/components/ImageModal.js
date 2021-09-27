@@ -39,10 +39,10 @@ function ImageModal(props) {
               body: JSON.stringify({ 'isPicture': true, 'author': token.user._id, content: imageURL })
             }).then((initRes) => {
               initRes.json().then((res) => {
-                let tempUserPosts = props.userPosts.data;
+                let tempUserPosts = [...props.userPosts];
                 res.author = token.user
                 tempUserPosts.unshift(res);
-                props.setUserPosts({ data: tempUserPosts });
+                props.setUserPosts(tempUserPosts);
               });
             });
           });
