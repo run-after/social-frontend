@@ -54,7 +54,7 @@ function Weather() {
               if (index < 8) {
                 return(
                   <div className='hour'>
-                    <div className='icon'>{hour.weather[0].main}</div>{/* icon placeholder */}
+                    <img src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} alt={hour.weather[0].main}/>
                     <p>{Math.ceil(hour.temp)}</p>
                     <p>{new Date(hour.dt * 1000).getHours().toString()+':00'}</p>
                   </div>
@@ -63,20 +63,31 @@ function Weather() {
             })
           }
         </div>
-        
-        Daily <br />
-        {
-          data.daily.map((day, index) => {
-            const dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            if (index < 6 && index !== 0) {
-              return (
-                <div>
-                  <p>{dayOfWeek[new Date(day.dt * 1000).getDay()]} - {day.weather[0].main} - {day.temp.min}/{day.temp.max}</p>
-                </div>
-              )
-            }
-          })
-        }
+        <div className='daily'>
+          {
+            data.daily.map((day, index) => {
+              const dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+              if (index < 6 && index !== 0) {
+                return (
+                  <div className='day'>
+                    <div className='description'>
+                      <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt={day.weather[0].main}/>
+                      <div>
+                        <p className='day-of-week'>{dayOfWeek[new Date(day.dt * 1000).getDay()]}</p>
+                        <p>{day.weather[0].main}</p>
+                      </div>
+                    </div>
+                    <div className='temps'>
+                      <p className='max-temp'>{Math.ceil(day.temp.max)}</p>
+                      <p className='min-temp'>{Math.ceil(day.temp.min)}</p>
+                    </div>
+                    
+                  </div>
+                )
+              }
+            })
+          }
+        </div>
       </div>
     )
   };

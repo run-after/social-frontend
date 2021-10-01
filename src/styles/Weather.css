@@ -1,8 +1,5 @@
 .weather {
-  margin-top: 100px;
-}
-.weather {
-  margin-top: 50px;
+  margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -33,6 +30,7 @@
   padding: 20px;
   border-radius: 10px;
   border: 1px solid lightgray;
+  box-shadow: 10px 5px 5px rgb(209, 209, 209);
 }
 
 .weather .current {
@@ -56,14 +54,47 @@
   margin: 5px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .weather .hour > * {
   margin: 2px;
 }
 
-.weather .hour .icon {
-  height: 50px;
-  width: 50px;
-  background: lightyellow;
+.weather .daily {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather .day {
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+}
+
+.weather .day .description {
+  display: flex;
+  align-items: center;
+}
+
+.weather .day .description > * {
+  margin: 5px;
+}
+
+.weather .day .day-of-week {
+  font-weight: bold;
+}
+
+.weather .day .temps {
+  display: flex;
+}
+
+.weather .day .temps > * {
+  margin: 5px;
+}
+
+.weather .temps .min-temp {
+  opacity: 0.5;
 }
