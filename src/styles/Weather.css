@@ -10,6 +10,31 @@
   background: #e6e8ec;
 }
 
+.weather .left-column .search-form input {
+  border: none;
+  margin: 2px;
+  background: none;
+  height: 2em;
+}
+
+.weather .left-column .choices {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather .left-column .choice-btn {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background: white;
+  margin: 3px;
+  padding: 10px;
+}
+
+.weather .left-column .choice-btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
 .weather .main {
   display: flex;
   justify-content: center;

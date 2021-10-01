@@ -1,12 +1,12 @@
 import '../styles/Weather.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function Weather() {
 
   const unit = 'imperial';
 
   const [data, setData] = useState(null);
-  const [cityName, setCityName] = useState('');// This might come from geolocation
+  const [cityName, setCityName] = useState('');
   const [choices, setChoices] = useState(null);
 
 
@@ -52,13 +52,13 @@ function Weather() {
           {
             data.hourly.map((hour, index) => {
               if (index < 8) {
-                return(
+                return (
                   <div className='hour'>
-                    <img src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} alt={hour.weather[0].main}/>
+                    <img src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} alt={hour.weather[0].main} />
                     <p>{Math.ceil(hour.temp)}</p>
-                    <p>{new Date(hour.dt * 1000).getHours().toString()+':00'}</p>
+                    <p>{new Date(hour.dt * 1000).getHours().toString() + ':00'}</p>
                   </div>
-                )  
+                )
               }
             })
           }
@@ -71,7 +71,7 @@ function Weather() {
                 return (
                   <div className='day'>
                     <div className='description'>
-                      <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt={day.weather[0].main}/>
+                      <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt={day.weather[0].main} />
                       <div>
                         <p className='day-of-week'>{dayOfWeek[new Date(day.dt * 1000).getDay()]}</p>
                         <p>{day.weather[0].main}</p>
@@ -90,39 +90,32 @@ function Weather() {
         </div>
       </div>
     )
-  };
-
-  
-  useEffect(() => {
-    // Might use geotracker to get current location
-  }, []);
-
-  
+  };  
 
   return (
     <div className="weather">
       <div className='left-column'>
         <h1 className='title'>Weather</h1>
-        <form onSubmit={handleSubmit}>
+        <form className='search-form' onSubmit={handleSubmit}>
           <input className='city-search' name='city' placeholder='Search for city...' />
-          <input className='city-search' name='state' placeholder='Search for state...' />
-          <input className='city-search' name='country' placeholder='Search for country...' />
-          <button>Submit</button>
+          <input className='state-search' name='state' placeholder='Search for state...' />
+          <input className='country-search' name='country' placeholder='Search for country...' />
+          <button className='btn'>Submit</button>
         </form>
-        Choices
-        {
-          choices &&
-          choices.map(choice => (
-            <button onClick={() => makeChoice(choice)}>
-              {choice.name}, 
-              {choice.state}, 
-              {choice.country}
-            </button>
-          ))
-        }
+        <div className='choices'>
+          {
+            choices &&
+            choices.map(choice => (
+              <button className='choice-btn' onClick={() => makeChoice(choice)}>
+                {choice.name}, {choice.state && `${choice.state}, `}{choice.country}
+              </button>
+            ))
+          }
+        </div>
+        
       </div>
       <div className='main'>
-        {data && displayCurrentData() /* There has to be a better way*/}
+        {data && displayCurrentData()}
       </div>
     </div>
   );
