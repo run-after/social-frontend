@@ -47,23 +47,23 @@ function Weather() {
             </div>
             <p>{data.current.weather[0].main}</p>
           </div>
-          
+        </div>
+        <div className='hourly'>
+          {
+            data.hourly.map((hour, index) => {
+              if (index < 8) {
+                return(
+                  <div className='hour'>
+                    <div className='icon'>{hour.weather[0].main}</div>{/* icon placeholder */}
+                    <p>{Math.ceil(hour.temp)}</p>
+                    <p>{new Date(hour.dt * 1000).getHours().toString()+':00'}</p>
+                  </div>
+                )  
+              }
+            })
+          }
         </div>
         
-        <br />
-        hourly <br />
-        {/* Figure out how to limit this to the current day */}
-        {
-          data.hourly.map((hour, index) => {
-            if (index < 8) {
-              return(
-              <div>
-                <p>{new Date(hour.dt * 1000).getHours().toString()+':00'}: {hour.temp} - {hour.weather[0].main}</p>
-                </div>
-              )  
-            }
-          })
-        }
         Daily <br />
         {
           data.daily.map((day, index) => {

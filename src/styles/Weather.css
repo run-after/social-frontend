@@ -46,3 +46,24 @@
   margin-left: 15px;
   opacity: 0.5;
 }
+
+.weather .hourly {
+  display: flex;
+  margin: 10px;
+}
+
+.weather .hour {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.weather .hour > * {
+  margin: 2px;
+}
+
+.weather .hour .icon {
+  height: 50px;
+  width: 50px;
+  background: lightyellow;
+}
