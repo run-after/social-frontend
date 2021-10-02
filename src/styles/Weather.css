@@ -123,3 +123,26 @@
 .weather .temps .min-temp {
   opacity: 0.5;
 }
+
+@media (max-width: 800px) {
+  .weather {
+    flex-direction: column;
+  }
+
+  .left-column {
+    width: 100%;
+  }
+
+  .weather .left-column .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .weather .main {
+    height: 100%;
+  }
+
+  .weather .hourly {
+    flex-wrap: wrap;
+  }
+}
