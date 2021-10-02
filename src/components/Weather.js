@@ -36,7 +36,6 @@ function Weather() {
   const displayCurrentData = () => {
     return (
       <div className='weather-tile'>
-        {console.log('data', data)}
         <h2 className='title'>Weather in {cityName}</h2>
         <div className='current'>
           <h2 className='title'>{Math.ceil(data.current.temp)}</h2>
@@ -54,7 +53,7 @@ function Weather() {
               if (index < 8) {
                 return (
                   <div className='hour'>
-                    <img src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} alt={hour.weather[0].main} />
+                    <img src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} alt={hour.weather[0].main} />
                     <p>{Math.ceil(hour.temp)}</p>
                     <p>{new Date(hour.dt * 1000).getHours().toString() + ':00'}</p>
                   </div>
@@ -71,7 +70,7 @@ function Weather() {
                 return (
                   <div className='day'>
                     <div className='description'>
-                      <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt={day.weather[0].main} />
+                      <img src={`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt={day.weather[0].main} />
                       <div>
                         <p className='day-of-week'>{dayOfWeek[new Date(day.dt * 1000).getDay()]}</p>
                         <p>{day.weather[0].main}</p>
