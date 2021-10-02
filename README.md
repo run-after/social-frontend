@@ -113,6 +113,8 @@ From the profile page, the user can see all the posts that user has created, sor
 
 From the user list page, the user can view all users, send friend requests, accept friend requests, and remove friends. The button changes based on the status of the friendship/friend request.
 
+There is a weather page where the user can input a city, state, and country to check the weather in that spot. The frontend makes calls first to the OpenWeatherMap API to convert locate the place they are looking for to latitude and longitude, then makes a call to the OpenWeatherMap API to get current weather conditions, hourly conditions, and daily weather conditions.
+
 <!-- CONTACT -->
 
 ## Contact
@@ -129,3 +131,4 @@ Project Link: [https://github.com/run-after/social-frontend](https://github.com/
 - [React icons](https://react-icons.github.io/react-icons/)
 - [React-images-upload](https://www.npmjs.com/package/react-images-upload)
 - [React-router-dom](https://www.npmjs.com/package/react-router-dom)
+- [OpenWeatherMap API](https://openweathermap.org/api)
